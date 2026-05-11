@@ -1,0 +1,84 @@
+{% extends "main/base.html" %}
+
+{% block title %}Artisan Sign Up{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="mb-3 text-center">Create Artisan Account</h2>
+                    <p class="text-muted text-center mb-4">
+                        Join as an artisan and showcase your work, receive proposals, and grow your profile.
+                    </p>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="first_name" class="form-label">First name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="last_name" class="form-label">Last name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea name="bio" id="bio" rows="4" class="form-control"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="avatar" class="form-label">Avatar</label>
+                            <input type="file" name="avatar" id="avatar" class="form-control">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password1" class="form-label">Password</label>
+                                <input type="password" name="password1" id="password1" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label for="password2" class="form-label">Confirm password</label>
+                                <input type="password" name="password2" id="password2" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100 rounded-3">
+                            Create Artisan Account
+                        </button>
+                    </form>
+
+                    <p class="text-center mt-4 mb-0">
+                        Already have an account?
+                        <a href="{% url 'account:login_view' %}">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
