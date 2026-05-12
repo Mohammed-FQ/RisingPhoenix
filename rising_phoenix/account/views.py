@@ -66,7 +66,7 @@ def login_view(request:HttpRequest):
             messages.success(request, "Logged in successufly")
             if user.groups.filter(name='artisan').exists():
                 print('artisan')
-                return redirect('main:home_view')
+                return redirect('workshop:create_workshop_view')
             return redirect('main:home_view')
         else:
             messages.error(request, "Your Username or Password is wrong, try again")
