@@ -58,6 +58,7 @@ def artisan_signup_view(request:HttpRequest):
 def login_view(request:HttpRequest):
     if request.user.is_authenticated:
         return redirect('main:home_view')
+
     if request.method == 'POST':
         user = authenticate(request, username = request.POST['username'], password = request.POST['password'])
 
