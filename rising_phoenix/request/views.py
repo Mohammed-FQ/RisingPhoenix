@@ -198,7 +198,7 @@ def refine_request_view(request: HttpRequest):
 		return JsonResponse({'error': 'AI service is not configured. Add OPENAI_API_KEY in environment settings.'}, status=503)
 
 	try:
-		from openai import OpenAI
+		from openai import OpenAI # type: ignore
 	except ImportError:
 		logger.error('OpenAI package not installed')
 		return JsonResponse({'error': 'OpenAI package is not installed. Add it to requirements and install dependencies.'}, status=503)
