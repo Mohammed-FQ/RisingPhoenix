@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, ProfileForm, ArtisanProfileForm
+from django.shortcuts import get_object_or_404, render, redirect
+from .forms import CustomUserCreationForm, ProfileForm, ArtisanProfileForm, CustomUserUpdateForm
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import ArtisanProfile
+from django.contrib.auth.models import Group, User
+from django.db.models import Avg
 
 # Create your views here.
 
@@ -27,7 +28,7 @@ def signup_view(request:HttpRequest):
         else:
             print(user_form.errors)
             messages.error(request, "something goes Wrong")
-            return render(request, 'account/signup.html', {'user_form': user_form})
+            return render(request, 'account/signup.html', {'user_form': user_form, 'profile_form': profile_form})
         
     return render(request, 'account/signup.html')
 
@@ -67,6 +68,9 @@ def login_view(request:HttpRequest):
         if user:
             login(request,user)
             messages.success(request, "Logged in successufly")
+            #redirect to the staff id the user is staff
+            if user.is_staff:
+                return redirect('staff:staff_dashboard_view')
             if user.groups.filter(name='artisan').exists():
                 print('artisan')
                 return redirect('workshop:create_workshop_view')
@@ -120,4 +124,38 @@ def artisan_dashboard_view(request: HttpRequest):
         'stats': stats,
     }
     return render(request, 'account/artisan_dashboard.html', context)
+def profile_view(request:HttpRequest, user_name):
+    user = get_object_or_404(User, username = user_name)
+    if user.groups.filter(name='artisan').exists():
+        messages.warning(request, 'Your are not allowed')
+        return redirect('main:home_view')
+    user_profile = user.profile
+    user_reviews = user.reviews_received.all()
+    avg_rating = user_reviews.aggregate(avg_rating=Avg('rating'))['avg_rating']
+    return render(request,'account/profile.html',{'user_profile': user_profile, 'user_reviews': user_reviews, 'avg_rating': avg_rating})
+
+def update_profile_view(request:HttpRequest,user_name):
+    if user_name != request.user.username:
+        messages.warning(request,'Your are not allowed')
+        return redirect('main:home_view')
+    user = User.objects.get(username = user_name)
+    if user.groups.filter(name='artisan').exists():
+        messages.warning(request, 'Your are not allowed')
+        redirect('main:home_view')
+    user_profile = user.profile
+    if request.method == 'POST':
+        user_form = CustomUserUpdateForm(request.POST,instance=request.user)
+        profile_form = ProfileForm(request.POST,request.FILES,instance=user_profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            with transaction.atomic():
+                user_form.save()
+                profile_form.save()
+                messages.success(request, "Your profile has been update it")
+            return redirect('account:profile_view', user_name = request.user.username)
+        else:
+            print(user_form.errors)
+            messages.error(request, "something goes Wrong")
+            return render(request, 'account/update_profile.html', {'user_form': user_form, 'user_profile': user_profile, 'profile_form': profile_form})
+    return render(request, 'account/update_profile.html',{'user_profile': user_profile})
+
 
