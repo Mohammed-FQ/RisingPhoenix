@@ -96,9 +96,8 @@ WSGI_APPLICATION = 'rising_phoenix.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-import dj_database_url
-
 if os.environ.get('EXTERNAL_OR_NOT', 'False').strip().lower() == 'true':
+    import dj_database_url
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL', ''), conn_max_age=600)
     }
