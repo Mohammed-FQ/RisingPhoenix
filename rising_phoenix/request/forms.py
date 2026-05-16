@@ -1,5 +1,6 @@
 from django import forms
 
+from rising_phoenix.moderation import text_is_clean
 from .models import Request
 
 
@@ -19,6 +20,18 @@ class RequestForm(forms.ModelForm):
             'budget_min': forms.NumberInput(attrs={'class': 'request-input', 'placeholder': 'e.g. 500 (optional)', 'min': '0'}),
             'budget_max': forms.NumberInput(attrs={'class': 'request-input', 'placeholder': 'e.g. 2000 (optional)', 'min': '0'}),
         }
+
+    def clean_title(self):
+        value = self.cleaned_data.get('title', '')
+        if value and not text_is_clean(value):
+            raise forms.ValidationError('Your title contains inappropriate language. Please revise it.')
+        return value
+
+    def clean_description(self):
+        value = self.cleaned_data.get('description', '')
+        if value and not text_is_clean(value):
+            raise forms.ValidationError('Your description contains inappropriate language. Please revise it.')
+        return value
 
     def clean_budget_min(self):
         budget_min = self.cleaned_data.get('budget_min')
