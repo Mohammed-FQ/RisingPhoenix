@@ -2,6 +2,7 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
@@ -210,9 +211,24 @@ def accept_proposal_view(request, proposal_id):
     proposal.status = Proposal.Status.ACCEPTED
     proposal.save(update_fields=['status', 'updated_at'])
 
+    rejected_artisans = list(
+        project_request.proposals
+        .filter(status=Proposal.Status.PENDING)
+        .exclude(id=proposal.id)
+        .values_list('artisan', flat=True)
+    )
     project_request.proposals.filter(status=Proposal.Status.PENDING).exclude(id=proposal.id).update(
         status=Proposal.Status.REJECTED
     )
+
+    for artisan in get_user_model().objects.filter(id__in=rejected_artisans):
+        notify(
+            artisan,
+            Notification.NotifType.PROPOSAL_REJECTED,
+            'Your proposal was not selected',
+            body=f'The requester went with another proposal for "{project_request.title}". Good luck with your other proposals!',
+            link=reverse('request:request_detail_view', kwargs={'request_id': project_request.id}),
+        )
 
     project_request.status = Request.Status.CLOSED
     project_request.save(update_fields=['status'])
