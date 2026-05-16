@@ -18,6 +18,9 @@
             {% elif notifications %}
                 <span class="notif-count-label">All caught up</span>
             {% endif %}
+            <a href="{% url 'notification:notification_settings_view' %}" class="notif-settings-link" title="Notification settings">
+                <i class="bi bi-gear"></i>
+            </a>
         </div>
     </div>
 
