@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.views.decorators.http import require_POST
 
 from notification.models import Notification
 from notification.utils import notify
@@ -93,9 +92,12 @@ def contract_detail_view(request, contract_id):
 
 
 @login_required
-@require_POST
 def post_update_view(request, contract_id):
     contract = get_object_or_404(Contract, id=contract_id)
+
+    if request.method != 'POST':
+        messages.error(request, 'Invalid action.')
+        return redirect('progress:contract_detail_view', contract_id=contract_id)
 
     if request.user != contract.artisan:
         messages.error(request, 'Only the artisan can post progress updates.')
@@ -130,10 +132,13 @@ def post_update_view(request, contract_id):
 
 
 @login_required
-@require_POST
 def add_comment_view(request, update_id):
     update = get_object_or_404(ProgressUpdate.objects.select_related('contract'), id=update_id)
     contract = update.contract
+
+    if request.method != 'POST':
+        messages.error(request, 'Invalid action.')
+        return redirect('progress:contract_detail_view', contract_id=contract.id)
 
     if request.user not in (contract.artisan, contract.requester):
         messages.error(request, 'You do not have access to this project.')
@@ -168,9 +173,12 @@ def add_comment_view(request, update_id):
 
 
 @login_required
-@require_POST
 def request_completion_view(request, contract_id):
     contract = get_object_or_404(Contract, id=contract_id)
+
+    if request.method != 'POST':
+        messages.error(request, 'Invalid action.')
+        return redirect('progress:contract_detail_view', contract_id=contract_id)
 
     if request.user != contract.artisan:
         messages.error(request, 'Only the artisan can mark a project as complete.')
@@ -208,9 +216,12 @@ def request_completion_view(request, contract_id):
 
 
 @login_required
-@require_POST
 def confirm_completion_view(request, contract_id):
     contract = get_object_or_404(Contract, id=contract_id)
+
+    if request.method != 'POST':
+        messages.error(request, 'Invalid action.')
+        return redirect('progress:contract_detail_view', contract_id=contract_id)
 
     if request.user != contract.requester:
         messages.error(request, 'Only the requester can confirm completion.')
@@ -241,9 +252,12 @@ def confirm_completion_view(request, contract_id):
 
 
 @login_required
-@require_POST
 def reject_completion_view(request, contract_id):
     contract = get_object_or_404(Contract, id=contract_id)
+
+    if request.method != 'POST':
+        messages.error(request, 'Invalid action.')
+        return redirect('progress:contract_detail_view', contract_id=contract_id)
 
     if request.user != contract.requester:
         messages.error(request, 'Only the requester can reject a completion request.')
