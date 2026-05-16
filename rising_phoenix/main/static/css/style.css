@@ -27,12 +27,12 @@
 }
 
 .results-toolbar {
-    background: #fff;
+    background: #F5F0E6;
 }
 
 .artisan-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: #fff;
+    background: #EADDCA;
 }
 
 .artisan-card:hover {
@@ -46,19 +46,19 @@
 }
 
 .artisan-rating-badge {
-    background: #fff8e6;
+    background: #F5EDDC;
     color: #9a6700;
 }
 
 .category-chip {
-    background: #f8f9fa;
+    background: #EADDCA;
     color: #495057;
     border: 1px solid #e9ecef;
 }
 
 .rating-slider-card {
     padding: 1rem 1rem 1.1rem;
-    background: #fff;
+    background: #EADDCA;
     border: 1px solid #e9ecef;
     border-radius: 1rem;
 }
@@ -105,7 +105,7 @@
     height: 22px;
     border-radius: 50%;
     background: #0d6efd;
-    border: 3px solid #ffffff;
+    border: 3px solid #F5F0E6;
     box-shadow: 0 2px 8px rgba(13, 110, 253, 0.25);
     cursor: pointer;
     pointer-events: auto;
@@ -116,7 +116,7 @@
     height: 22px;
     border-radius: 50%;
     background: #0d6efd;
-    border: 3px solid #ffffff;
+    border: 3px solid #F5F0E6;
     box-shadow: 0 2px 8px rgba(13, 110, 253, 0.25);
     cursor: pointer;
     pointer-events: auto;
@@ -149,7 +149,7 @@
     text-align: center;
     padding: 0.75rem;
     border-radius: 0.9rem;
-    background: #f5f7fb;
+    background: #EADDCA;
     color: #212529;
     font-weight: 500;
 }

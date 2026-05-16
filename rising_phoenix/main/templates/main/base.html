@@ -131,7 +131,9 @@
     {% endif %}
 
     <div class="saaf-layout d-flex">
-        {% block sidebar %}{% endblock %}
+        {% block sidebar %}
+            {% include 'main/_sidebar.html' %}
+        {% endblock %}
         <main class="saaf-main flex-grow-1">
             {% block content %}{% endblock %}
         </main>

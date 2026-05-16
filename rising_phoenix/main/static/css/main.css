@@ -8,7 +8,7 @@
     --saaf-brown-light: #B08C5A;           /* Light brown — secondary visuals */
     --saaf-brown: #6B4826;                 /* Regular brown — buttons, headings */
     --saaf-text-muted: #8B6841;            /* Muted brown — secondary text */
-    --saaf-white: #ffffff;
+    --saaf-white: #F5F0E6;
     --saaf-border: rgba(107, 72, 38, 0.12);
 }
 
@@ -222,7 +222,7 @@ a:hover {
 
 .saaf-section {
     padding: 4rem 0;
-    background-color: var(--saaf-white);
+    background-color: var(--saaf-bg);
 }
 
 .saaf-eyebrow {
@@ -814,7 +814,7 @@ a:hover {
 }
 
 .saaf-toast {
-    background: #fff;
+    background: var(--saaf-beige);
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     font-size: 0.9rem;
@@ -829,9 +829,9 @@ a:hover {
 }
 
 .saaf-footer {
-    background-color: var(--saaf-white);
+    background-color: var(--saaf-beige);
     border-top: 1px solid var(--saaf-border);
-    color: #555;
+    color: var(--saaf-text-muted);
 }
 
 .saaf-footer h6 {
@@ -1065,7 +1065,7 @@ a:hover {
 }
 
 .saaf-confirm-card {
-    background: #fff;
+    background: var(--saaf-beige);
     border-radius: 16px;
     padding: 2rem;
     max-width: 440px;

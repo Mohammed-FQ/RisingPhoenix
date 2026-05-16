@@ -1,3 +1,15 @@
+/* Theme aliases to match index palette */
+:root {
+    --sand: var(--saaf-bg, #F1E8D5);
+    --sand-dark: var(--saaf-beige, #E0D2B4);
+    --clay: var(--saaf-brown-light, #B08C5A);
+    --ink: var(--saaf-brown, #6B4826);
+    --ink-mid: #6f5436;
+    --ink-light: var(--saaf-text-muted, #8B6841);
+    --cream: var(--saaf-bg, #F1E8D5);
+    --border: rgba(107, 72, 38, 0.14);
+}
+
 /* ── Proposal form two-column layout ── */
 .proposal-form-shell {
     padding: 2.5rem 1rem;
@@ -217,7 +229,7 @@
 
 .proposal-card--accepted {
     border-color: #4a7c59;
-    background: #f4faf6;
+    background: #EAF0E8;
 }
 
 .proposal-card--rejected {
@@ -323,7 +335,7 @@
 }
 
 .proposal-status-pill--pending {
-    background: #fff3cd;
+    background: #F5EDDC;
     color: #856404;
 }
 
@@ -333,7 +345,7 @@
 }
 
 .proposal-status-pill--rejected {
-    background: #f8d7da;
+    background: #F3E2E0;
     color: #842029;
 }
 

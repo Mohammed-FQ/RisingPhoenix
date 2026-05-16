@@ -4,40 +4,7 @@
 {% block title %}Saaf — Saudi Artisan Marketplace{% endblock %}
 
 {% block sidebar %}
-{% if request.user.is_authenticated %}
-<aside class="saaf-sidebar">
-    <p class="sidebar-label">My Space</p>
-
-    {% if request.user.artisanprofile %}
-        <a href="{% url 'account:artisan_dashboard_view' %}" class="sidebar-btn" aria-label="Dashboard">
-            <i class="bi bi-grid-1x2-fill"></i>
-        </a>
-        <a href="{% url 'proposal:my_proposals_view' %}" class="sidebar-btn" aria-label="My Proposals">
-            <i class="bi bi-send"></i>
-        </a>
-        <a href="{% url 'message:conversation_list_view' %}" class="sidebar-btn" aria-label="Messages">
-            <i class="bi bi-chat-dots"></i>
-        </a>
-        <a href="{% url 'workshop:workshop_detail_view' request.user.id %}" class="sidebar-btn" aria-label="My Workshop">
-            <i class="bi bi-shop"></i>
-        </a>
-    {% else %}
-        <a href="{% url 'main:dashboard_view' %}" class="sidebar-btn" aria-label="Dashboard">
-            <i class="bi bi-grid-1x2-fill"></i>
-        </a>
-        <a href="{% url 'request:request_list_view' %}" class="sidebar-btn" aria-label="My Requests">
-            <i class="bi bi-file-text"></i>
-        </a>
-        <a href="{% url 'message:conversation_list_view' %}" class="sidebar-btn" aria-label="Messages">
-            <i class="bi bi-chat-dots"></i>
-        </a>
-        <div class="sidebar-divider"></div>
-        <a href="{% url 'request:request_create_view' %}" class="sidebar-btn sidebar-btn-new" aria-label="Post New Request">
-            <i class="bi bi-plus-lg"></i>
-        </a>
-    {% endif %}
-</aside>
-{% endif %}
+{% include 'main/_sidebar.html' %}
 {% endblock %}
 
 {% block content %}
