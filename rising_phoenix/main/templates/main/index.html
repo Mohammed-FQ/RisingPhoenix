@@ -30,12 +30,12 @@
                         <div class="saaf-card-icon-small">
                             <i class="bi bi-pencil-square"></i>
                         </div>
-                        <p class="mb-0 small fw-semibold mt-3">Post your idea in 2 minutes</p>
+                        <p class="mb-0 small fw-semibold mt-3">Post your custom idea</p>
                     </div>
                     <div class="saaf-hero-card saaf-hero-card-small saaf-hero-card-stats">
                         <div class="saaf-card-stats-text">
-                            <p class="mb-0 text-muted">First proposal in</p>
-                            <h6>24 Hours</h6>
+                            <p class="mb-0 text-muted">Direct collaboration</p>
+                            <h6>With Saudi artisans</h6>
                         </div>
                     </div>
                 </div>
@@ -127,14 +127,14 @@
                     <div class="saaf-step">
                         <h3 class="saaf-step-number">1</h3>
                         <h5 class="mb-2">Post Your Request</h5>
-                        <p class="text-muted small">Describe your piece, upload reference images, and set your budget. Takes 2 minutes.</p>
+                        <p class="text-muted small">Describe your piece, upload reference images, and set your budget.</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="saaf-step">
                         <h3 class="saaf-step-number">2</h3>
                         <h5 class="mb-2">Receive Proposals</h5>
-                        <p class="text-muted small">Vetted artisans send tailored offers with timelines and pricing within 24 hours.</p>
+                        <p class="text-muted small">Artisans send tailored offers with timelines and pricing.</p>
                     </div>
                 </div>
                 <div class="col">
@@ -149,84 +149,39 @@
     </div>
 </section>
 
-<!-- Featured handmade products -->
+<!-- Latest published workshops -->
 <section class="saaf-section py-5 saaf-reveal">
     <div class="container-lg">
-        <p class="saaf-eyebrow text-center mb-2">— Featured handmade products</p>
-        <h2 class="saaf-section-title text-center mb-5">Curated pieces from Saudi workshops</h2>
+        <p class="saaf-eyebrow text-center mb-2">— Latest workshops</p>
+        <h2 class="saaf-section-title text-center mb-5">Published workshops on Saaf</h2>
+        {% if latest_workshops %}
         <div class="row g-4">
+            {% for workshop in latest_workshops %}
             <div class="col-md-6 col-xl-3">
-                <div class="saaf-featured-card h-100">
-                    <div class="saaf-product-media"><i class="bi bi-cup-hot"></i></div>
-                    <div class="saaf-product-body">
-                        <h5 class="mb-2">Hand-thrown Coffee Set</h5>
-                        <p class="text-muted small mb-2">Minimal ceramic collection made in Riyadh.</p>
-                        <p class="saaf-price-tag mb-0">Starting from SAR 260</p>
+                <a href="{% url 'workshop:workshop_detail_view' workshop.artisan.user.id %}" class="text-decoration-none">
+                    <div class="saaf-featured-card h-100">
+                        <div class="saaf-product-media">
+                            {% if workshop.cover_image %}
+                                <img src="{{ workshop.cover_image.url }}" alt="{{ workshop.workshop_name }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                            {% else %}
+                                <i class="bi bi-shop"></i>
+                            {% endif %}
+                        </div>
+                        <div class="saaf-product-body">
+                            <h5 class="mb-2">{{ workshop.workshop_name }}</h5>
+                            <p class="text-muted small mb-2">{{ workshop.tagline|default:"Saudi artisan workshop"|truncatechars:70 }}</p>
+                            <p class="saaf-price-tag mb-0">{{ workshop.location|default:"Saudi Arabia" }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="saaf-featured-card h-100">
-                    <div class="saaf-product-media"><i class="bi bi-bag"></i></div>
-                    <div class="saaf-product-body">
-                        <h5 class="mb-2">Leather Everyday Tote</h5>
-                        <p class="text-muted small mb-2">Hand-stitched tote with custom initials option.</p>
-                        <p class="saaf-price-tag mb-0">Starting from SAR 320</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="saaf-featured-card h-100">
-                    <div class="saaf-product-media"><i class="bi bi-house-heart"></i></div>
-                    <div class="saaf-product-body">
-                        <h5 class="mb-2">Palm Wood Decor Tray</h5>
-                        <p class="text-muted small mb-2">Crafted from local wood with natural finish.</p>
-                        <p class="saaf-price-tag mb-0">Starting from SAR 180</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-3">
-                <div class="saaf-featured-card h-100">
-                    <div class="saaf-product-media"><i class="bi bi-flower1"></i></div>
-                    <div class="saaf-product-body">
-                        <h5 class="mb-2">Najdi Embroidery Frame</h5>
-                        <p class="text-muted small mb-2">Personalized textile art inspired by heritage motifs.</p>
-                        <p class="saaf-price-tag mb-0">Starting from SAR 210</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-    </div>
-</section>
-
-<!-- Testimonials -->
-<section class="saaf-section py-5 saaf-reveal">
-    <div class="container-lg">
-        <p class="saaf-eyebrow text-center mb-2">— Testimonials</p>
-        <h2 class="saaf-section-title text-center mb-5">What customers say about Saaf</h2>
-        <div class="row g-4">
-            <div class="col-md-6 col-xl-4">
-                <article class="saaf-testimonial-card">
-                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></div>
-                    <p class="mb-0">The artisan understood my brief perfectly. I received progress photos every step, and the final piece looked even better than the mockup.</p>
-                    <p class="saaf-testimonial-author mb-0">Noura A. — Riyadh</p>
-                </article>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <article class="saaf-testimonial-card">
-                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></div>
-                    <p class="mb-0">Posting a request was easy and clear. Within one day I got multiple serious proposals with fair prices and realistic timelines.</p>
-                    <p class="saaf-testimonial-author mb-0">Hamad S. — Jeddah</p>
-                </article>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <article class="saaf-testimonial-card">
-                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-half"></i></div>
-                    <p class="mb-0">As an artisan, Saaf helped me get repeat clients. The workflow is smooth and gives customers confidence in handcrafted custom work.</p>
-                    <p class="saaf-testimonial-author mb-0">Maha K. — Khobar</p>
-                </article>
-            </div>
+        {% else %}
+        <div class="saaf-featured-card text-center p-4">
+            <p class="mb-0 text-muted">No published workshops yet.</p>
         </div>
+        {% endif %}
     </div>
 </section>
 
