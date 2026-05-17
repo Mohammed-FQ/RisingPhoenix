@@ -17,6 +17,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from notification.utils import send_welcome_email, send_artisan_welcome_email
 from django.core.paginator import Paginator
 from request.models import Request
+from staff.views import submit_report_view, my_reports_view  # re-export for account URLs
 # Create your views here.
 
 def signup_view(request:HttpRequest):
