@@ -45,26 +45,26 @@
                 <i class="bi bi-house-door-fill"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#">
+            <a href="{% url 'request:request_list_view' %}">
                 <i class="bi bi-search"></i>
                 <span>Browse Requests</span>
-                <span class="sidebar-badge">12</span>
+                <span class="sidebar-badge">{{ stats.open_requests }}</span>
             </a>
             <a href="#">
                 <i class="bi bi-box-seam"></i>
                 <span>Active Orders</span>
-                <span class="sidebar-badge">2</span>
+                <span class="sidebar-badge">{{ stats.active_orders }}</span>
             </a>
-            <a href="#">
+            <a href="{% url 'proposal:my_proposals_view' %}">
                 <i class="bi bi-clipboard-check"></i>
                 <span>My Proposals</span>
-                <span class="sidebar-badge">4</span>
+                <span class="sidebar-badge">{{ stats.my_proposals }}</span>
             </a>
             <a href="{% url 'workshop:projects_list_view' artisan.user.id %}">
                 <i class="bi bi-check-circle-fill"></i>
                 <span>Completed</span>
             </a>
-            <a href="#">
+            <a href="{% url 'message:conversation_list_view' %}">
                 <i class="bi bi-chat-dots"></i>
                 <span>Messages</span>
                 <span class="sidebar-badge">2</span>
@@ -73,7 +73,7 @@
                 <i class="bi bi-images"></i>
                 <span>My Profile</span>
             </a>
-            <a href="#">
+            <a href="{% url 'payment:my_cards' %}">
                 <i class="bi bi-cash-coin"></i>
                 <span>Earnings</span>
             </a>
@@ -89,13 +89,14 @@
         <!-- Page Header -->
         <div class="page-header">
             <div class="header-left">
-                <div class="header-label">PAGE 12 OF 16 — ARTISAN DASHBOARD: EARNINGS, ORDERS, PROPOSALS PREVIEW,
-                    MATCHING REQUESTS FEED</div>
+                <!-- <div class="header-label">PAGE 12 OF 16 — ARTISAN DASHBOARD: EARNINGS, ORDERS, PROPOSALS PREVIEW,
+                    MATCHING REQUESTS FEED</div> -->
                 <h1>Welcome back, {{ artisan.user.first_name }}</h1>
-                <p class="header-subtitle">12 open requests match your skills right now.</p>
+                <p class="header-subtitle">{{ stats.open_requests }} open requests match your skills right now.</p>
             </div>
             <div class="header-right">
-                <a href="#" class="btn btn-outline-primary">Browse Open Requests →</a>
+                <a href="{% url 'request:request_list_view' %}" class="btn btn-outline-primary">Browse Open Requests
+                    →</a>
                 <a href="{% url 'workshop:create_project_view' %}" class="btn btn-primary" style="margin-left:12px;">Add
                     Completed Project</a>
             </div>
