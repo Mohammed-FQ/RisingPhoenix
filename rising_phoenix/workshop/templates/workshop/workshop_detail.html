@@ -85,7 +85,7 @@
                     {% if first %}
                     <img src="{{ first.image.url }}" alt="{{ project.title }}">
                     {% else %}
-                    <div style="padding:24px;color:#8b7461;">No image</div>
+                    <div class="saaf-workshop-no-image">No image</div>
                     {% endif %}
                     {% endwith %}
                     {% endif %}
@@ -103,32 +103,32 @@
 {% if reviews %}
 <div class="container" style="max-width:1200px; margin-top:18px; margin-bottom:24px;">
   <div class="portfolio-section">
-    <h2>Reviews <span style="font-size:1rem; font-weight:400; color:var(--text-muted);">({{ reviews|length }})</span></h2>
+    <h2>Reviews <span class="saaf-review-count">({{ reviews|length }})</span></h2>
     <div style="display:flex; flex-direction:column; gap:16px; margin-top:8px;">
       {% for review in reviews %}
-      <div style="background:#f7efe7; border-radius:12px; padding:20px 24px;">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-          <div style="width:40px;height:40px;border-radius:50%;background:#c96f52;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;flex-shrink:0;">
+            <div class="saaf-review-card">
+                <div class="saaf-review-head">
+                    <div class="saaf-review-avatar">
             {{ review.reviews_given.first_name|slice:":1"|default:review.reviews_given.username|slice:":1"|upper }}
           </div>
           <div>
-            <div style="font-weight:700;color:#2c1f1a;">{{ review.reviews_given.get_full_name|default:review.reviews_given.username }}</div>
-            <div style="font-size:0.8rem;color:var(--text-muted);">{{ review.created_at|date:"N j, Y" }}</div>
+                        <div class="saaf-review-author">{{ review.reviews_given.get_full_name|default:review.reviews_given.username }}</div>
+                        <div class="saaf-review-date">{{ review.created_at|date:"N j, Y" }}</div>
           </div>
-          <div style="margin-left:auto;">
-            <span style="font-size:0.75rem;font-weight:700;background:#27ae60;color:#fff;padding:3px 8px;border-radius:4px;">
+                    <div class="ms-auto">
+                        <span class="saaf-review-verified-pill">
               <i class="bi bi-patch-check-fill"></i> Verified Completed Project
             </span>
           </div>
         </div>
-        <div style="color:#c96f52; font-size:1.1rem; margin-bottom:8px;">
+                <div class="saaf-review-stars">
           {% for i in "12345" %}
             {% if forloop.counter <= review.rating %}&#9733;{% else %}&#9734;{% endif %}
           {% endfor %}
-          <span style="font-size:0.85rem;color:var(--text-muted);margin-left:6px;">{{ review.get_rating_display }}</span>
+                    <span class="saaf-review-rating-label">{{ review.get_rating_display }}</span>
         </div>
         {% if review.comment %}
-        <p style="color:#3d3430;margin:0;line-height:1.6;">{{ review.comment }}</p>
+                <p class="saaf-review-comment">{{ review.comment }}</p>
         {% endif %}
       </div>
       {% endfor %}

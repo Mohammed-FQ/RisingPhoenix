@@ -50,16 +50,17 @@
 }
 
 .proposal-preview-title {
-    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.4rem;
     color: var(--cream, #fdfaf5);
     margin: 0 0 0.25rem;
     line-height: 1.3;
+    font-weight: 700;
 }
 
 .proposal-preview-meta {
     font-size: 0.8rem;
-    color: #afa094;
+    color: var(--ink-light);
     margin: 0 0 1rem;
 }
 
@@ -73,7 +74,7 @@
 }
 
 .proposal-request-preview .proposal-stat-label {
-    color: #afa094;
+    color: var(--ink-light);
 }
 
 .proposal-request-preview .proposal-stat-value {
@@ -82,7 +83,7 @@
 
 .proposal-preview-description {
     font-size: 0.88rem;
-    color: #ccc0b5;
+    color: var(--ink-light);
     line-height: 1.7;
     margin: 0;
     white-space: pre-line;
@@ -183,13 +184,14 @@
 }
 
 .proposal-panel-title {
-    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.5rem;
     color: var(--ink, #1c1712);
     margin: 0;
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    font-weight: 700;
 }
 
 .proposal-count-badge {
@@ -204,7 +206,7 @@
     min-width: 1.5rem;
     height: 1.5rem;
     padding: 0 0.4rem;
-    font-family: 'DM Sans', 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 /* ── Proposal Card ── */
@@ -486,4 +488,51 @@
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
     color: var(--ink-mid, #4a3f33);
+}
+
+[data-theme="dark"] .proposal-card,
+[data-theme="dark"] .proposal-cta-box,
+[data-theme="dark"] .request-detail-card {
+    background: #2f2621;
+    border-color: rgba(245, 230, 211, 0.16);
+}
+
+[data-theme="dark"] .proposal-card--accepted {
+    background: #24382f;
+    border-color: #3e8f6b;
+}
+
+[data-theme="dark"] .proposal-card-request-title a,
+[data-theme="dark"] .proposal-stat-value,
+[data-theme="dark"] .proposal-card-artisan {
+    color: var(--saaf-brown);
+}
+
+[data-theme="dark"] .proposal-card-meta,
+[data-theme="dark"] .proposal-stat-label,
+[data-theme="dark"] .proposal-card-message,
+[data-theme="dark"] .proposal-empty-note,
+[data-theme="dark"] .proposal-cancel-link,
+[data-theme="dark"] .request-detail-card p {
+    color: var(--saaf-text-muted);
+}
+
+[data-theme="dark"] .proposal-status-pill--pending {
+    background: #5a4927;
+    color: #f5df9f;
+}
+
+[data-theme="dark"] .proposal-status-pill--accepted {
+    background: #23523f;
+    color: #b9efd6;
+}
+
+[data-theme="dark"] .proposal-status-pill--rejected {
+    background: #5a2a2e;
+    color: #f0c0c6;
+}
+
+[data-theme="dark"] .proposal-status-pill--withdrawn {
+    background: #404247;
+    color: #d4d7dc;
 }

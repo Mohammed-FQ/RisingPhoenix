@@ -164,10 +164,11 @@
 
 /* Section title */
 .progress-section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3rem;
     color: var(--ink, #1c1712);
     margin-bottom: 1.5rem;
+    font-weight: 700;
 }
 
 /* Timeline */

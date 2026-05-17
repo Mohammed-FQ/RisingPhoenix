@@ -11,10 +11,32 @@
 {% block content %}
 <section class="py-4 py-md-5">
     <div class="container-lg">
-        <div class="saaf-dashboard-card rounded-4 p-4 p-md-5 mb-4">
+        <div class="saaf-dashboard-card saaf-dashboard-hero rounded-4 p-4 p-md-5 mb-4">
             <p class="saaf-eyebrow mb-2">Dashboard</p>
             <h1 class="saaf-section-title mb-2">Welcome, {{ request.user.first_name|default:request.user.username }}</h1>
             <p class="text-muted mb-0">Quick access to your most important actions.</p>
+
+            <div class="saaf-dashboard-hero-actions">
+                {% if request.user.artisanprofile %}
+                <a href="{% url 'request:request_list_view' %}" class="saaf-quick-action-btn">
+                    <i class="bi bi-lightning-charge"></i>
+                    Find New Request
+                </a>
+                <a href="{% url 'proposal:my_proposals_view' %}" class="saaf-quick-action-btn">
+                    <i class="bi bi-send-check"></i>
+                    Track Proposals
+                </a>
+                {% else %}
+                <a href="{% url 'request:request_create_view' %}" class="saaf-quick-action-btn">
+                    <i class="bi bi-plus-circle"></i>
+                    Create Request
+                </a>
+                <a href="{% url 'main:browse_view' %}" class="saaf-quick-action-btn">
+                    <i class="bi bi-search"></i>
+                    Browse Artisans
+                </a>
+                {% endif %}
+            </div>
         </div>
 
         <div class="row g-3">
@@ -22,7 +44,10 @@
             <div class="col-md-4">
                 <a href="{% url 'workshop:workshop_detail_view' request.user.id %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">My Workshop</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">My Workshop</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-shop"></i></span>
+                        </div>
                         <p class="text-muted mb-0">Review your public workshop profile.</p>
                     </div>
                 </a>
@@ -30,7 +55,10 @@
             <div class="col-md-4">
                 <a href="{% url 'workshop:upload_portfolio_view' %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">Portfolio</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">Portfolio</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-images"></i></span>
+                        </div>
                         <p class="text-muted mb-0">Upload and manage portfolio images.</p>
                     </div>
                 </a>
@@ -38,7 +66,10 @@
             <div class="col-md-4">
                 <a href="{% url 'request:request_list_view' %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">Open Requests</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">Open Requests</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-briefcase"></i></span>
+                        </div>
                         <p class="text-muted mb-0">Browse active customer requests.</p>
                     </div>
                 </a>
@@ -47,7 +78,10 @@
             <div class="col-md-4">
                 <a href="{% url 'request:request_create_view' %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">Post a Request</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">Post a Request</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-plus-square"></i></span>
+                        </div>
                         <p class="text-muted mb-0">Start a new custom project request.</p>
                     </div>
                 </a>
@@ -55,7 +89,10 @@
             <div class="col-md-4">
                 <a href="{% url 'request:request_list_view' %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">Discover</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">Discover</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-compass"></i></span>
+                        </div>
                         <p class="text-muted mb-0">Explore marketplace requests and artisans.</p>
                     </div>
                 </a>
@@ -63,7 +100,10 @@
             <div class="col-md-4">
                 <a href="{% url 'account:profile_view' request.user.username %}" class="saaf-tile-link">
                     <div class="saaf-dashboard-card rounded-4 p-4 h-100">
-                        <h5 class="mb-2">My Profile</h5>
+                        <div class="saaf-dashboard-tile-head">
+                            <h5 class="mb-0">My Profile</h5>
+                            <span class="saaf-dashboard-tile-icon"><i class="bi bi-person-circle"></i></span>
+                        </div>
                         <p class="text-muted mb-0">View and update your account details.</p>
                     </div>
                 </a>

@@ -10,7 +10,7 @@
 {% block content %}
 
 <!-- Hero -->
-<section class="saaf-hero">
+<section class="saaf-hero saaf-reveal">
     <div class="container-lg">
         <div class="row align-items-center g-4">
             <!-- Left: Visual Cards -->
@@ -72,10 +72,10 @@
 </section>
 
 <!-- What can be commissioned -->
-<section class="saaf-section py-5">
+<section class="saaf-section py-5 saaf-reveal">
     <div class="container-lg">
-        <p class="saaf-eyebrow text-center mb-2">— What can be made</p>
-        <h2 class="saaf-section-title text-center mb-5">Crafts you can commission</h2>
+        <p class="saaf-eyebrow text-center mb-2">— Categories</p>
+        <h2 class="saaf-section-title text-center mb-5">Craft categories for custom work</h2>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-6 g-3">
             <div class="col">
                 <a href="{% url 'main:browse_view' %}" class="saaf-craft-card text-decoration-none">
@@ -118,7 +118,7 @@
 </section>
 
 <!-- How It Works -->
-<section class="saaf-section py-5">
+<section class="saaf-section py-5 saaf-reveal">
     <div class="container-lg">
         <div class="saaf-how-works-box">
             <p class="saaf-eyebrow text-center mb-3">— How Saaf Works</p>
@@ -149,9 +149,90 @@
     </div>
 </section>
 
+<!-- Featured handmade products -->
+<section class="saaf-section py-5 saaf-reveal">
+    <div class="container-lg">
+        <p class="saaf-eyebrow text-center mb-2">— Featured handmade products</p>
+        <h2 class="saaf-section-title text-center mb-5">Curated pieces from Saudi workshops</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+                <div class="saaf-featured-card h-100">
+                    <div class="saaf-product-media"><i class="bi bi-cup-hot"></i></div>
+                    <div class="saaf-product-body">
+                        <h5 class="mb-2">Hand-thrown Coffee Set</h5>
+                        <p class="text-muted small mb-2">Minimal ceramic collection made in Riyadh.</p>
+                        <p class="saaf-price-tag mb-0">Starting from SAR 260</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="saaf-featured-card h-100">
+                    <div class="saaf-product-media"><i class="bi bi-bag"></i></div>
+                    <div class="saaf-product-body">
+                        <h5 class="mb-2">Leather Everyday Tote</h5>
+                        <p class="text-muted small mb-2">Hand-stitched tote with custom initials option.</p>
+                        <p class="saaf-price-tag mb-0">Starting from SAR 320</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="saaf-featured-card h-100">
+                    <div class="saaf-product-media"><i class="bi bi-house-heart"></i></div>
+                    <div class="saaf-product-body">
+                        <h5 class="mb-2">Palm Wood Decor Tray</h5>
+                        <p class="text-muted small mb-2">Crafted from local wood with natural finish.</p>
+                        <p class="saaf-price-tag mb-0">Starting from SAR 180</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="saaf-featured-card h-100">
+                    <div class="saaf-product-media"><i class="bi bi-flower1"></i></div>
+                    <div class="saaf-product-body">
+                        <h5 class="mb-2">Najdi Embroidery Frame</h5>
+                        <p class="text-muted small mb-2">Personalized textile art inspired by heritage motifs.</p>
+                        <p class="saaf-price-tag mb-0">Starting from SAR 210</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="saaf-section py-5 saaf-reveal">
+    <div class="container-lg">
+        <p class="saaf-eyebrow text-center mb-2">— Testimonials</p>
+        <h2 class="saaf-section-title text-center mb-5">What customers say about Saaf</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-4">
+                <article class="saaf-testimonial-card">
+                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></div>
+                    <p class="mb-0">The artisan understood my brief perfectly. I received progress photos every step, and the final piece looked even better than the mockup.</p>
+                    <p class="saaf-testimonial-author mb-0">Noura A. — Riyadh</p>
+                </article>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <article class="saaf-testimonial-card">
+                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></div>
+                    <p class="mb-0">Posting a request was easy and clear. Within one day I got multiple serious proposals with fair prices and realistic timelines.</p>
+                    <p class="saaf-testimonial-author mb-0">Hamad S. — Jeddah</p>
+                </article>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <article class="saaf-testimonial-card">
+                    <div class="saaf-stars"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-half"></i></div>
+                    <p class="mb-0">As an artisan, Saaf helped me get repeat clients. The workflow is smooth and gives customers confidence in handcrafted custom work.</p>
+                    <p class="saaf-testimonial-author mb-0">Maha K. — Khobar</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Artisan CTA (hidden for logged-in artisans) -->
 {% if not request.user.artisanprofile %}
-<section class="saaf-section py-5">
+<section class="saaf-section py-5 saaf-reveal">
     <div class="container-lg">
         <div class="saaf-artisan-cta-banner">
             <div>
@@ -165,4 +246,26 @@
 </section>
 {% endif %}
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    var revealItems = document.querySelectorAll('.saaf-reveal');
+    if (!revealItems.length || !('IntersectionObserver' in window)) {
+        revealItems.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.14 });
+
+    revealItems.forEach(function (el) { observer.observe(el); });
+})();
+</script>
 {% endblock %}
