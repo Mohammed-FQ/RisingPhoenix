@@ -18,10 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from . import settings
+from main import views as main_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', include('main.urls')),
+    # Backward-compatible aliases for plain (non-namespaced) reverses.
+    path('about-us/', main_views.about_us_view, name='about_us_view'),
+    path('members/', main_views.members_view, name='members_view'),
+    path('terms/', main_views.terms_view, name='terms_view'),
     path('account/', include('account.urls')),
     path('staff/', include('staff.urls')),
     path('workshop/', include('workshop.urls')),

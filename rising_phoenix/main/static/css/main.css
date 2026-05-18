@@ -3,13 +3,37 @@
    ============================================ */
 
 :root {
-    --saaf-bg: #F1E8D5;                    /* Light beige — main background */
-    --saaf-beige: #E0D2B4;                 /* Medium beige — sections, badges */
-    --saaf-brown-light: #B08C5A;           /* Light brown — secondary visuals */
-    --saaf-brown: #6B4826;                 /* Regular brown — buttons, headings */
-    --saaf-text-muted: #8B6841;            /* Muted brown — secondary text */
-    --saaf-white: #ffffff;
-    --saaf-border: rgba(107, 72, 38, 0.12);
+    --saaf-bg: #F3E8D8;
+    --saaf-beige: #E9D9C3;
+    --saaf-brown-light: #7E8963;
+    --saaf-brown: #3F2D23;
+    --saaf-text-muted: #6A5648;
+    --saaf-white: #FAF1E5;
+    --saaf-border: rgba(96, 70, 51, 0.16);
+    --saaf-focus: rgba(212, 139, 104, 0.36);
+    --saaf-surface-soft: rgba(250, 241, 229, 0.92);
+    --saaf-btn: #C77A5C;
+    --saaf-btn-hover: #AE6448;
+    --saaf-accent: #7E8963;
+    --saaf-heading: #38261E;
+    --saaf-body: #594638;
+    --saaf-cream-text: #F2E4D1;
+    --saaf-espresso: #1C1511;
+    --saaf-surface-1: #FFF6EA;
+    --saaf-surface-2: #F0E2D1;
+    --saaf-nav-bg: rgba(243, 232, 216, 0.78);
+    --saaf-card-bg: linear-gradient(158deg, #FFF6EA 0%, #F3E4D1 100%);
+    --saaf-sidebar-bg: rgba(245, 232, 214, 0.72);
+    --saaf-modal-bg: #FBF2E6;
+    --saaf-shadow-sm: 0 8px 20px rgba(77, 52, 36, 0.12);
+    --saaf-shadow-lg: 0 18px 38px rgba(65, 44, 31, 0.16);
+    --sand: var(--saaf-beige);
+    --clay: var(--saaf-btn);
+    --ink: var(--saaf-brown);
+    --ink-light: var(--saaf-text-muted);
+    --cream: var(--saaf-bg);
+    --white: var(--saaf-white);
+    --sand-dark: #D8C2A4;
 }
 
 /* ============================================
@@ -27,27 +51,42 @@ html {
 }
 
 body {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: var(--saaf-bg);
-    color: #333;
+    background-image: radial-gradient(circle at 2% 8%, rgba(122, 139, 90, 0.08), transparent 24%), radial-gradient(circle at 94% 14%, rgba(74, 52, 40, 0.04), transparent 26%);
+    color: var(--saaf-text-muted);
     line-height: 1.6;
     text-align: left;
 }
 
-h1, h2, h3, h4, h5, h6,
-.brand-name {
-    font-family: 'Playfair Display', 'Georgia', serif;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    color: var(--saaf-brown);
+:lang(ar) {
+    font-family: 'Cairo', sans-serif;
 }
 
-p, span, button {
-    font-family: 'Manrope', sans-serif;
+:focus-visible {
+    outline: 3px solid var(--saaf-focus);
+    outline-offset: 2px;
+}
+
+h1, h2, h3, h4, h5, h6,
+.brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--saaf-heading);
+}
+
+p, span {
+    font-family: 'Poppins', sans-serif;
+    color: var(--saaf-body);
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
 }
 
 a {
-    color: var(--saaf-brown);
+    color: var(--saaf-heading);
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -62,9 +101,20 @@ a:hover {
 
 .saaf-navbar,
 .saaf-nav-wrapper {
-    background-color: var(--saaf-bg);
+    background-color: var(--saaf-nav-bg) !important;
+    backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--saaf-border);
     padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.saaf-navbar.hidden,
+.saaf-nav-wrapper.hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
 }
 
 .saaf-nav-wrapper .saaf-nav-container {
@@ -109,18 +159,19 @@ a:hover {
     color: var(--saaf-brown);
     font-weight: 500;
     position: relative;
-    padding-bottom: 0.5rem;
-    transition: color 0.3s ease;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    transition: color 0.3s ease, background-color 0.25s ease;
 }
 
 .saaf-nav-link:hover {
     color: var(--saaf-brown-light);
+    background-color: rgba(224, 210, 180, 0.6);
 }
 
 .saaf-nav-link.active {
     color: var(--saaf-brown);
-    border-bottom: 2px solid var(--saaf-brown);
-    padding-bottom: calc(0.5rem - 2px);
+    background-color: rgba(224, 210, 180, 0.7);
 }
 
 .saaf-account-toggle {
@@ -141,7 +192,7 @@ a:hover {
 .saaf-account-menu {
     border: 0.5px solid var(--saaf-border);
     border-radius: 14px;
-    background-color: var(--saaf-white);
+    background-color: var(--saaf-surface-1);
     min-width: 180px;
     padding: 0.35rem;
 }
@@ -173,18 +224,18 @@ a:hover {
 }
 
 .btn-saaf-primary {
-    background-color: var(--saaf-brown);
+    background-color: var(--saaf-btn);
     color: var(--saaf-white);
     border: none;
     font-weight: 500;
-    box-shadow: 0 2px 0 var(--saaf-text-muted);
+    box-shadow: 0 3px 10px rgba(169, 94, 73, 0.18);
 }
 
 .btn-saaf-primary:hover {
-    background-color: var(--saaf-brown-light);
+    background-color: var(--saaf-btn-hover);
     color: var(--saaf-white);
     transform: translateY(-2px);
-    box-shadow: 0 4px 0 var(--saaf-text-muted);
+    box-shadow: 0 8px 16px rgba(169, 94, 73, 0.24);
 }
 
 .btn-saaf-primary:active {
@@ -205,9 +256,216 @@ a:hover {
     color: var(--saaf-brown);
 }
 
+.btn:focus-visible,
+.btn-saaf-outline:focus-visible,
+.btn-saaf-primary:focus-visible,
+.saaf-theme-toggle:focus-visible,
+.saaf-bell-btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--saaf-focus);
+}
+
 .rounded-pill {
     border-radius: 50px;
     padding: 0.65rem 1.5rem;
+}
+
+/* ============================================
+   BOOTSTRAP OVERRIDES - Button Colors
+   ============================================ */
+
+/* Override Bootstrap primary (blue) buttons */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: var(--saaf-btn);
+    border-color: var(--saaf-btn);
+    color: var(--saaf-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--saaf-btn-hover);
+    border-color: var(--saaf-btn-hover);
+}
+
+/* Override Bootstrap info (cyan) buttons */
+.btn-info,
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active {
+    background-color: var(--saaf-brown-light);
+    border-color: var(--saaf-brown-light);
+    color: var(--saaf-white);
+}
+
+.btn-info:hover {
+    background-color: var(--saaf-brown);
+    border-color: var(--saaf-brown);
+}
+
+/* Override text-info color utility */
+.text-info {
+    color: var(--saaf-brown-light) !important;
+}
+
+[data-theme="dark"] {
+    --saaf-bg: #1B140F;
+    --saaf-beige: #2A2019;
+    --saaf-brown-light: #A2B081;
+    --saaf-brown: #F2E3CF;
+    --saaf-text-muted: #C9B79F;
+    --saaf-white: #241B15;
+    --saaf-border: rgba(232, 199, 164, 0.2);
+    --saaf-focus: rgba(212, 139, 104, 0.42);
+    --saaf-surface-soft: rgba(39, 30, 24, 0.92);
+    --saaf-btn: #D48B68;
+    --saaf-btn-hover: #E29C7A;
+    --saaf-accent: #A2B081;
+    --saaf-heading: #F2E3CF;
+    --saaf-body: #E3D1BA;
+    --saaf-cream-text: #F2E3CF;
+    --saaf-espresso: #1B140F;
+    --saaf-surface-1: #241B15;
+    --saaf-surface-2: #30241D;
+    --saaf-nav-bg: rgba(38, 29, 23, 0.9);
+    --saaf-card-bg: linear-gradient(156deg, #2A2019 0%, #332720 100%);
+    --saaf-sidebar-bg: rgba(44, 33, 26, 0.93);
+    --saaf-modal-bg: #2D221B;
+    --saaf-shadow-sm: 0 12px 24px rgba(10, 7, 5, 0.35);
+    --saaf-shadow-lg: 0 22px 44px rgba(8, 5, 4, 0.5);
+    --sand: var(--saaf-beige);
+    --clay: var(--saaf-btn);
+    --ink: var(--saaf-brown);
+    --ink-light: var(--saaf-text-muted);
+    --cream: var(--saaf-bg);
+    --white: var(--saaf-white);
+    --sand-dark: #3A2D24;
+}
+
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+    background-color: var(--saaf-bg);
+    color: var(--saaf-body);
+}
+
+[data-theme="dark"] {
+    background-color: var(--saaf-bg) !important;
+    color: var(--saaf-body) !important;
+}
+
+[data-theme="dark"] .saaf-sidebar-toggle {
+    color: var(--saaf-cream-text);
+    background-color: rgba(232, 199, 164, 0.16);
+}
+
+[data-theme="dark"] .saaf-sidebar-toggle:hover {
+    background-color: rgba(232, 199, 164, 0.24);
+}
+
+[data-theme="dark"] .saaf-sidebar {
+    background: linear-gradient(162deg, rgba(45, 34, 27, 0.96), rgba(35, 27, 21, 0.94));
+    border-color: var(--saaf-border);
+    box-shadow: var(--saaf-shadow-lg);
+}
+
+[data-theme="dark"] .sidebar-label {
+    color: var(--saaf-text-muted);
+}
+
+[data-theme="dark"] .saaf-sidebar-mini-toggle {
+    background: rgba(232, 199, 164, 0.2);
+    border-color: rgba(232, 199, 164, 0.3);
+    color: var(--saaf-cream-text);
+}
+
+[data-theme="dark"] .saaf-sidebar-mini-toggle:hover {
+    background: rgba(232, 199, 164, 0.32);
+}
+
+[data-theme="dark"] .sidebar-btn {
+    background: linear-gradient(150deg, rgba(232, 199, 164, 0.14), rgba(212, 139, 104, 0.08));
+    border-color: var(--saaf-border);
+    color: var(--saaf-cream-text);
+    box-shadow: var(--saaf-shadow-sm);
+}
+
+[data-theme="dark"] .sidebar-btn:hover {
+    background: linear-gradient(150deg, rgba(232, 199, 164, 0.26), rgba(212, 139, 104, 0.18));
+    color: var(--saaf-cream-text);
+}
+
+[data-theme="dark"] .sidebar-btn-active {
+    background: linear-gradient(150deg, rgba(212, 139, 104, 0.5), rgba(162, 176, 129, 0.3));
+    color: var(--saaf-cream-text);
+}
+
+[data-theme="dark"] .sidebar-active-indicator {
+    background-color: var(--saaf-btn);
+    box-shadow: 0 0 10px rgba(212, 139, 104, 0.6);
+}
+
+[data-theme="dark"] .sidebar-divider {
+    background: linear-gradient(90deg, transparent, rgba(232, 199, 164, 0.36), transparent);
+}
+
+[data-theme="dark"] .sidebar-btn-new {
+    background: linear-gradient(150deg, rgba(212, 139, 104, 0.88), rgba(174, 100, 72, 0.88));
+    border-color: rgba(232, 199, 164, 0.35);
+    color: var(--saaf-cream-text);
+    box-shadow: var(--saaf-shadow-sm);
+}
+
+[data-theme="dark"] .saaf-navbar,
+[data-theme="dark"] .saaf-nav-wrapper {
+    background-color: var(--saaf-nav-bg) !important;
+    border-bottom-color: rgba(232, 199, 164, 0.2);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .saaf-dashboard-card,
+[data-theme="dark"] .saaf-info-card,
+[data-theme="dark"] .saaf-featured-card,
+[data-theme="dark"] .saaf-testimonial-card,
+[data-theme="dark"] .results-toolbar,
+[data-theme="dark"] .filter-panel {
+    background: var(--saaf-card-bg) !important;
+    color: var(--saaf-body) !important;
+    border-color: var(--saaf-border) !important;
+}
+
+[data-theme="dark"] .bg-light,
+[data-theme="dark"] .text-bg-light,
+[data-theme="dark"] .badge.text-bg-light,
+[data-theme="dark"] .rating-slider-card,
+[data-theme="dark"] .active-filter-chip,
+[data-theme="dark"] .category-chip {
+    background: var(--saaf-beige) !important;
+    color: var(--saaf-brown) !important;
+    border-color: var(--saaf-border) !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .input-group-text {
+    background-color: var(--saaf-surface-2) !important;
+    color: var(--saaf-cream-text) !important;
+    border-color: var(--saaf-border) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: rgba(201, 183, 159, 0.78) !important;
+}
+
+[data-theme="dark"] .table,
+[data-theme="dark"] .table th,
+[data-theme="dark"] .table td {
+    color: var(--saaf-cream-text);
+    border-color: var(--saaf-border);
+    background-color: var(--saaf-surface-1);
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: rgba(232, 199, 164, 0.05);
 }
 
 /* ============================================
@@ -215,14 +473,39 @@ a:hover {
    ============================================ */
 
 .saaf-hero {
-    background-color: var(--saaf-bg);
+    position: relative;
+    overflow: hidden;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
     padding-top: 6rem;
     padding-bottom: 5rem;
 }
 
+.saaf-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.saaf-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(20, 13, 9, 0.7), rgba(20, 13, 9, 0.4));
+    z-index: 1;
+}
+
+.saaf-hero-content-wrap {
+    position: relative;
+    z-index: 2;
+}
+
 .saaf-section {
     padding: 4rem 0;
-    background-color: var(--saaf-white);
+    background-color: var(--saaf-bg);
 }
 
 .saaf-eyebrow {
@@ -245,38 +528,128 @@ a:hover {
    ============================================ */
 
 .saaf-layout {
+    display: block;
+    min-height: auto;
+}
+
+.saaf-sidebar-toggle {
+    position: fixed;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(150deg, rgba(74, 52, 40, 0.9), rgba(122, 139, 90, 0.75));
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #f4f4f4;
+    font-size: 22px;
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    min-height: calc(100vh - 80px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1036;
+    box-shadow: 0 12px 26px rgba(15, 10, 8, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.saaf-sidebar-toggle:hover {
+    transform: translateY(-50%) scale(1.06);
+    box-shadow: 0 16px 34px rgba(15, 10, 8, 0.28);
+}
+
+.saaf-sidebar-toggle.hidden {
+    display: none !important;
+}
+
+.saaf-sidebar-mini-toggle {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(74, 52, 40, 0.16);
+    background: rgba(48, 38, 32, 0.82);
+    color: #f4f4f4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    cursor: pointer;
+    margin-bottom: 0;
+    position: absolute;
+    top: 50%;
+    right: -11px;
+    transform: translateY(-50%);
+    z-index: 2;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.saaf-sidebar-mini-toggle:hover {
+    transform: translateY(-50%) scale(1.08);
+    background: rgba(60, 48, 40, 0.92);
+}
+
+.saaf-sidebar-mini-toggle.hidden {
+    display: none !important;
 }
 
 .saaf-sidebar {
     width: 68px;
-    flex-shrink: 0;
-    background-color: var(--saaf-bg);
-    padding: 18px 12px;
-    position: sticky;
-    top: 80px;
-    height: calc(100vh - 80px);
+    background: linear-gradient(165deg, rgba(255, 248, 240, 0.96), rgba(248, 237, 223, 0.88));
+    border: 1px solid rgba(74, 52, 40, 0.14);
+    border-radius: 24px;
+    box-shadow: 0 22px 46px rgba(28, 18, 8, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 10px;
+    position: fixed;
+    top: calc(50vh - 120px);
+    left: 10px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    border-right: 0.5px solid var(--saaf-border);
+    gap: 6px;
+    border-right: none;
+    z-index: 1035;
+    transition: transform 0.28s ease, opacity 0.28s ease, box-shadow 0.28s ease;
+    opacity: 1;
+    overflow: visible;
+}
+
+.saaf-sidebar.collapsed {
+    transform: translateX(-112%) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+}
+
+html[dir="rtl"] .saaf-sidebar-toggle {
+    left: auto;
+    right: 12px;
+}
+
+html[dir="rtl"] .saaf-sidebar-mini-toggle {
+    right: auto;
+    left: -11px;
+}
+
+html[dir="rtl"] .saaf-sidebar.collapsed {
+    transform: translateX(100%);
 }
 
 .saaf-main {
-    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
     padding: 24px;
 }
 
 .sidebar-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    border: 0.5px solid var(--saaf-border);
-    background-color: var(--saaf-white);
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    border: 1px solid rgba(74, 52, 40, 0.12);
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.86), rgba(248, 237, 223, 0.72));
     color: var(--saaf-brown);
     display: flex;
     align-items: center;
@@ -285,12 +658,18 @@ a:hover {
     font-size: 19px;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 8px 16px rgba(33, 24, 17, 0.08);
+    transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sidebar-label {
-    font-size: 0.75rem;
+    display: block;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--saaf-text-muted);
-    margin: 0 0 0.5rem;
+    margin-bottom: 0.2rem;
+    font-weight: 700;
 }
 
 .sidebar-btn i {
@@ -298,21 +677,27 @@ a:hover {
 }
 
 .sidebar-btn:hover {
-    background-color: var(--saaf-beige);
+    background: linear-gradient(150deg, rgba(122, 139, 90, 0.18), rgba(255, 255, 255, 0.86));
     color: var(--saaf-brown);
+    transform: translateX(2px) scale(1.06);
+    box-shadow: 0 12px 20px rgba(33, 24, 17, 0.14);
 }
 
 .sidebar-btn-active {
-    background-color: var(--saaf-beige);
+    background: linear-gradient(150deg, rgba(74, 52, 40, 0.9), rgba(122, 139, 90, 0.85));
+    border-color: transparent;
+    color: var(--saaf-white);
+    box-shadow: 0 14px 24px rgba(29, 18, 11, 0.22);
 }
 
 .sidebar-active-indicator {
     position: absolute;
-    left: -8px;
-    width: 3px;
-    height: 18px;
-    background-color: var(--saaf-brown);
-    border-radius: 4px;
+    right: -8px;
+    width: 6px;
+    height: 22px;
+    background-color: var(--saaf-brown-light);
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(122, 139, 90, 0.5);
 }
 
 .sidebar-badge {
@@ -341,26 +726,28 @@ a:hover {
 }
 
 .sidebar-divider {
-    width: 28px;
+    display: block;
+    width: 32px;
     height: 1px;
-    background-color: var(--saaf-border);
-    margin: 6px 0;
+    margin: 4px 0;
+    background: linear-gradient(90deg, transparent, rgba(74, 52, 40, 0.24), transparent);
 }
 
 .sidebar-btn-new {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background-color: var(--saaf-brown);
-    color: var(--saaf-bg);
-    box-shadow: 0 2px 0 var(--saaf-text-muted);
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: linear-gradient(150deg, rgba(201, 123, 99, 0.94), rgba(169, 94, 73, 0.92));
+    color: var(--saaf-cream-text);
+    box-shadow: 0 12px 22px rgba(169, 94, 73, 0.28);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 19px;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     text-decoration: none;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sidebar-btn-new i {
@@ -368,13 +755,27 @@ a:hover {
 }
 
 .sidebar-btn-new:hover {
-    background-color: var(--saaf-brown-light);
-    color: var(--saaf-white);
+    color: var(--saaf-cream-text);
+    transform: translateX(2px) scale(1.06);
+    box-shadow: 0 16px 28px rgba(169, 94, 73, 0.36);
+}
+
+html[dir="rtl"] .sidebar-btn:hover,
+html[dir="rtl"] .sidebar-btn-new:hover {
+    transform: translateX(-2px) scale(1.06);
+}
+
+html[dir="rtl"] .sidebar-active-indicator {
+    right: auto;
+    left: -8px;
 }
 
 .saaf-dashboard-card {
     border: 0.5px solid var(--saaf-border);
-    background-color: var(--saaf-white);
+    background: var(--saaf-card-bg);
+    border-radius: 18px;
+    box-shadow: var(--saaf-shadow-sm);
+    transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
 }
 
 .saaf-see-all {
@@ -411,8 +812,20 @@ a:hover {
 .saaf-description {
     font-size: 1rem;
     line-height: 1.7;
-    color: #555;
+    color: rgba(255, 248, 240, 0.92);
     margin-bottom: 2rem;
+}
+
+.saaf-hero .saaf-eyebrow,
+.saaf-hero .saaf-hero-title,
+.saaf-hero .saaf-text-accent {
+    color: var(--saaf-white);
+}
+
+.saaf-hero .btn-saaf-outline {
+    background: rgba(255, 248, 240, 0.14);
+    border-color: rgba(255, 248, 240, 0.35);
+    color: var(--saaf-white);
 }
 
 /* Hero Grid Layout */
@@ -573,7 +986,7 @@ a:hover {
 
 .saaf-card-meta {
     padding: 1rem;
-    background-color: var(--saaf-white);
+    background: var(--saaf-card-bg);
 }
 
 .saaf-card-meta h6 {
@@ -677,8 +1090,9 @@ a:hover {
     text-align: center;
     padding: 2rem 1.5rem;
     border-radius: 18px;
-    background-color: var(--saaf-white);
+    background: var(--saaf-card-bg);
     border: 1px solid var(--saaf-border);
+    box-shadow: var(--saaf-shadow-sm);
     transition: all 0.3s ease;
 }
 
@@ -728,9 +1142,10 @@ a:hover {
 
 .saaf-step-number {
     font-size: 2.25rem;
-    font-family: 'Playfair Display', 'Georgia', serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--saaf-brown);
     margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .saaf-step-number.saaf-step-accent {
@@ -750,7 +1165,7 @@ a:hover {
     justify-content: center;
     gap: 0.5rem;
     padding: 1.25rem 0.75rem;
-    background: var(--saaf-white);
+    background: var(--saaf-card-bg);
     border: 1px solid var(--saaf-border);
     border-radius: 14px;
     color: var(--saaf-brown);
@@ -791,9 +1206,10 @@ a:hover {
 }
 
 .saaf-artisan-cta-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.6rem;
     color: var(--saaf-brown);
+    font-weight: 700;
 }
 
 /* ============================================
@@ -807,10 +1223,27 @@ a:hover {
 }
 
 .saaf-bell-btn {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     padding: 0;
     flex-shrink: 0;
+}
+
+.saaf-nav-wrapper .btn-saaf-outline.rounded-pill,
+.saaf-nav-wrapper .saaf-theme-toggle,
+.saaf-nav-wrapper .saaf-bell-btn {
+    min-height: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+}
+
+.saaf-nav-wrapper .saaf-theme-toggle,
+.saaf-nav-wrapper .saaf-bell-btn {
+    width: 42px;
+    padding-inline: 0;
 }
 
 .saaf-notif-badge {
@@ -818,7 +1251,7 @@ a:hover {
     top: -4px;
     right: -4px;
     background: var(--clay, #c2724f);
-    color: #fff;
+    color: var(--saaf-white);
     font-size: 0.62rem;
     font-weight: 700;
     border-radius: 10px;
@@ -839,7 +1272,7 @@ a:hover {
     right: 0;
     width: 320px;
     max-width: calc(100vw - 1.5rem);
-    background: #fff;
+    background: var(--saaf-surface-1);
     border: 1px solid var(--sand, #e8ddd3);
     border-radius: 14px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.12);
@@ -888,7 +1321,7 @@ a:hover {
 }
 
 .saaf-notif-mark-btn:hover {
-    color: #a85c3a;
+    color: var(--saaf-btn-hover);
 }
 
 .saaf-notif-dd-list {
@@ -917,12 +1350,12 @@ a.saaf-notif-dd-item {
 }
 
 .saaf-notif-dd-item--unread {
-    background: #fdfaf5;
+    background: var(--saaf-beige);
     opacity: 1;
 }
 
 .saaf-notif-dd-item:hover {
-    background: #f9f5ef;
+    background: var(--saaf-beige);
     color: inherit;
 }
 
@@ -955,9 +1388,12 @@ a.saaf-notif-dd-item {
     font-size: 0.77rem;
     color: var(--ink-light, #8a7a6e);
     margin: 0 0 0.2rem;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.45;
 }
 
 .saaf-notif-dd-item-time {
@@ -992,13 +1428,13 @@ a.saaf-notif-dd-item {
     color: var(--clay, #c2724f);
     text-decoration: none;
     border-top: 1px solid var(--sand, #e8ddd3);
-    background: #fdfaf5;
+    background: var(--saaf-beige);
     transition: background 0.12s;
 }
 
 .saaf-notif-dd-footer:hover {
-    background: #f5ede4;
-    color: #a85c3a;
+    background: var(--saaf-bg);
+    color: var(--saaf-btn-hover);
 }
 
 /* Toast notifications */
@@ -1015,12 +1451,12 @@ a.saaf-notif-dd-item {
 }
 
 .saaf-toast {
-    background: #fff;
+    background: var(--saaf-beige);
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     font-size: 0.9rem;
     font-weight: 500;
-    color: #2a1a0e;
+    color: var(--saaf-brown);
     animation: saaf-toast-in 0.25s ease;
 }
 
@@ -1030,9 +1466,9 @@ a.saaf-notif-dd-item {
 }
 
 .saaf-footer {
-    background-color: var(--saaf-white);
+    background-color: var(--saaf-beige);
     border-top: 1px solid var(--saaf-border);
-    color: #555;
+    color: var(--saaf-text-muted);
 }
 
 .saaf-footer h6 {
@@ -1072,17 +1508,508 @@ a.saaf-notif-dd-item {
     border-color: var(--saaf-border);
 }
 
+/* Shared card/link helpers for standardized templates */
+.saaf-tile-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.saaf-tile-link:hover .saaf-dashboard-card {
+    border-color: rgba(107, 72, 38, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(28, 18, 8, 0.1);
+}
+
+.saaf-dashboard-hero {
+    background: linear-gradient(145deg, rgba(245, 240, 230, 0.95), rgba(224, 210, 180, 0.6));
+}
+
+.saaf-dashboard-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.15rem;
+}
+
+.saaf-quick-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--saaf-border);
+    background: var(--saaf-surface-soft);
+    color: var(--saaf-brown);
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.saaf-quick-action-btn:hover {
+    background: rgba(224, 210, 180, 0.8);
+    color: var(--saaf-brown);
+}
+
+.saaf-dashboard-tile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+}
+
+.saaf-dashboard-tile-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(224, 210, 180, 0.62);
+    color: var(--saaf-brown);
+    font-size: 1rem;
+}
+
+.saaf-info-card {
+    background: var(--saaf-white);
+    border: 1px solid var(--saaf-border);
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.saaf-info-label {
+    display: block;
+    color: var(--saaf-text-muted);
+    font-size: 0.82rem;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.saaf-avatar-preview {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--saaf-white);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.saaf-avatar-fallback {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: var(--saaf-beige);
+    color: var(--saaf-brown);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    border: 3px solid var(--saaf-white);
+}
+
+.saaf-check-card {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--saaf-border);
+    border-radius: 12px;
+    background: var(--saaf-white);
+    cursor: pointer;
+}
+
+.saaf-check-card input {
+    margin: 0;
+}
+
+.saaf-portfolio-item {
+    background: var(--saaf-white);
+    border: 1px solid var(--saaf-border);
+    border-radius: 12px;
+    padding: 0.45rem;
+}
+
+/* Profile page */
+.saaf-profile-shell {
+    position: relative;
+    overflow: hidden;
+}
+
+.saaf-profile-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 90% 10%, rgba(176, 140, 90, 0.16), transparent 36%),
+        radial-gradient(circle at 12% 82%, rgba(107, 72, 38, 0.1), transparent 30%);
+}
+
+.saaf-profile-hero,
+.saaf-profile-bio-card,
+.saaf-profile-info-card {
+    position: relative;
+    z-index: 1;
+}
+
+.saaf-profile-hero {
+    background: linear-gradient(135deg, rgba(224, 210, 180, 0.62), rgba(245, 240, 230, 0.75));
+    border: 1px solid rgba(107, 72, 38, 0.16);
+    border-radius: 20px;
+    padding: 1.1rem 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.saaf-profile-hero-main {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+.saaf-profile-avatar-wrap {
+    flex-shrink: 0;
+}
+
+.saaf-profile-avatar {
+    width: 112px;
+    height: 112px;
+    margin: 0;
+    border-width: 4px;
+    box-shadow: 0 8px 22px rgba(38, 22, 8, 0.14);
+}
+
+.saaf-profile-heading-block {
+    min-width: 0;
+}
+
+.saaf-profile-heading-block .saaf-section-title {
+    margin-bottom: 0.35rem;
+    line-height: 1.2;
+}
+
+.saaf-profile-username {
+    color: var(--saaf-brown);
+    font-weight: 600;
+}
+
+.saaf-profile-joined {
+    color: var(--saaf-text-muted);
+    font-size: 0.9rem;
+}
+
+.saaf-profile-status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    align-items: flex-end;
+}
+
+.saaf-profile-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(245, 240, 230, 0.95);
+    border: 1px solid rgba(107, 72, 38, 0.18);
+    color: var(--saaf-brown);
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.saaf-profile-pill--ok {
+    background: rgba(74, 124, 89, 0.14);
+    border-color: rgba(74, 124, 89, 0.28);
+    color: #3e654a;
+}
+
+.saaf-profile-info-card {
+    border-radius: 16px;
+    padding: 1rem 1rem 1.1rem;
+}
+
+.saaf-profile-info-card p {
+    color: var(--saaf-brown);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.saaf-profile-bio-card {
+    background: rgba(245, 240, 230, 0.75);
+    border: 1px solid var(--saaf-border);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+}
+
+.saaf-profile-subtitle {
+    font-size: 1rem;
+    color: var(--saaf-brown);
+    margin: 0;
+}
+
+.saaf-profile-bio-card p {
+    color: var(--saaf-text-muted);
+}
+
+.saaf-theme-toggle {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saaf-page-loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(245, 230, 211, 0.96);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.saaf-page-loader[aria-hidden="true"] {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.saaf-loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+
+.saaf-loader-logo {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: saaf-logo-pulse 2.5s ease-in-out infinite;
+}
+
+.saaf-loader-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.saaf-loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(201, 123, 99, 0.2);
+    border-top-color: var(--saaf-btn);
+    border-radius: 50%;
+    animation: saaf-spin 0.9s linear infinite;
+}
+
+@keyframes saaf-logo-pulse {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.12) translateY(-16px);
+    }
+}
+
+
+
+/* Dark mode loader */
+[data-theme="dark"] .saaf-page-loader {
+    background: rgba(30, 30, 35, 0.98);
+}
+
+.saaf-loader-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px solid rgba(201, 123, 99, 0.25);
+    border-top-color: var(--saaf-btn);
+    animation: saaf-spin 0.85s linear infinite;
+}
+
+@keyframes saaf-spin {
+    to { transform: rotate(360deg); }
+}
+
+.saaf-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.saaf-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.saaf-featured-card,
+.saaf-testimonial-card {
+    background: var(--saaf-card-bg);
+    border: 1px solid var(--saaf-border);
+    border-radius: 20px;
+    box-shadow: var(--saaf-shadow-sm);
+}
+
+.saaf-featured-card {
+    overflow: hidden;
+    transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+.saaf-featured-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09);
+}
+
+.saaf-product-media {
+    height: 190px;
+    background: linear-gradient(140deg, rgba(201, 123, 99, 0.14), rgba(122, 139, 90, 0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.25rem;
+    color: var(--saaf-brown);
+}
+
+.saaf-product-body {
+    padding: 1rem 1.1rem 1.2rem;
+}
+
+.saaf-price-tag {
+    font-size: 0.92rem;
+    color: var(--saaf-accent);
+    font-weight: 600;
+}
+
+.saaf-testimonial-card {
+    padding: 1.15rem;
+    height: 100%;
+}
+
+.saaf-stars {
+    color: #D4A92D;
+    font-size: 0.95rem;
+    margin-bottom: 0.7rem;
+}
+
+.saaf-testimonial-author {
+    margin-top: 0.75rem;
+    color: var(--saaf-brown);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.saaf-workshop-no-image {
+    padding: 24px;
+    color: var(--saaf-text-muted);
+}
+
+.saaf-review-count {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--saaf-text-muted);
+}
+
+.saaf-review-card {
+    background: var(--saaf-beige);
+    border: 1px solid var(--saaf-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.saaf-review-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.saaf-review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--saaf-btn);
+    color: var(--saaf-cream-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.saaf-review-author {
+    font-weight: 700;
+    color: var(--saaf-brown);
+}
+
+.saaf-review-date {
+    font-size: 0.8rem;
+    color: var(--saaf-text-muted);
+}
+
+.saaf-review-verified-pill {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #2e7d5a;
+    color: var(--saaf-cream-text);
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.saaf-review-stars {
+    color: #D4A92D;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.saaf-review-rating-label {
+    font-size: 0.85rem;
+    color: var(--saaf-text-muted);
+    margin-left: 6px;
+}
+
+.saaf-review-comment {
+    color: var(--saaf-text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+[data-theme="dark"] .saaf-review-card {
+    background: #2f2621;
+    border-color: rgba(245, 230, 211, 0.16);
+}
+
+[data-theme="dark"] .saaf-review-verified-pill {
+    background: #2f8f64;
+}
+
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 
 @media (max-width: 991px) {
     .saaf-nav-wrapper .navbar-collapse {
-        padding-top: 0.9rem;
+        padding: 0.95rem;
+        margin-top: 0.8rem;
+        border: 1px solid var(--saaf-border);
+        border-radius: 16px;
+        background: var(--saaf-surface-soft);
+        box-shadow: var(--saaf-shadow-sm);
     }
 
     .saaf-nav-wrapper .navbar-nav {
         align-items: flex-start;
+        margin-inline-start: 0;
         margin-bottom: 0.8rem;
     }
 
@@ -1101,6 +2028,18 @@ a.saaf-notif-dd-item {
     .saaf-how-works-box {
         padding: 2rem;
     }
+
+    .saaf-profile-hero-main {
+        grid-template-columns: auto 1fr;
+    }
+
+    .saaf-profile-status-list {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1110,6 +2049,7 @@ a.saaf-notif-dd-item {
 
     .saaf-main {
         padding: 16px;
+        margin-inline-start: 0;
     }
 
     .saaf-hero-grid {
@@ -1160,6 +2100,41 @@ a.saaf-notif-dd-item {
     .saaf-footer .row {
         text-align: center;
     }
+
+    .saaf-dashboard-hero-actions {
+        gap: 0.5rem;
+    }
+
+    .saaf-quick-action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .saaf-dashboard-tile-head {
+        margin-bottom: 0.55rem;
+    }
+
+    .saaf-profile-hero {
+        padding: 0.95rem;
+    }
+
+    .saaf-profile-hero-main {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .saaf-profile-avatar-wrap {
+        display: flex;
+        justify-content: center;
+    }
+
+    .saaf-profile-status-list {
+        justify-content: center;
+    }
+
+    .saaf-profile-joined {
+        font-size: 0.85rem;
+    }
 }
 
 /* ============================================
@@ -1172,6 +2147,133 @@ a.saaf-notif-dd-item {
 
 .container-lg {
     max-width: 1200px;
+}
+
+html[dir="rtl"] body {
+    text-align: right;
+}
+
+html[dir="rtl"] .saaf-layout {
+    display: block;
+}
+
+html[dir="rtl"] .saaf-layout > .saaf-sidebar {
+    order: initial;
+}
+
+html[dir="rtl"] .saaf-layout > .saaf-main {
+    order: initial;
+}
+
+html[dir="rtl"] .saaf-sidebar {
+    left: auto;
+    right: 10px;
+    border-right: none;
+    border-left: none;
+}
+
+html[dir="rtl"] .saaf-sidebar-toggle {
+    left: auto;
+    right: 12px;
+}
+
+html[dir="rtl"] .saaf-nav-wrapper .ms-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+html[dir="rtl"] .saaf-nav-wrapper .ms-lg-3 {
+    margin-left: 0 !important;
+    margin-right: 1rem !important;
+}
+
+html[dir="rtl"] .saaf-nav-wrapper .navbar-collapse {
+    text-align: right;
+}
+
+html[dir="rtl"] .saaf-notif-dropdown {
+    right: auto;
+    left: 0;
+    direction: rtl;
+    text-align: right;
+    width: min(360px, calc(100vw - 1rem));
+}
+
+html[dir="rtl"] .saaf-notif-dd-item {
+    text-align: right;
+}
+
+html[dir="rtl"] .saaf-notif-dd-item-time {
+    display: inline-block;
+}
+
+html[dir="rtl"] .saaf-notif-badge {
+    right: auto;
+    left: -4px;
+}
+
+html[dir="rtl"] .sidebar-badge {
+    left: auto;
+    right: -4px;
+}
+
+/* Auth pages readability */
+.saaf-auth-card {
+    background: var(--saaf-card-bg);
+    border: 1px solid var(--saaf-border);
+}
+
+.saaf-auth-card .form-label {
+    color: var(--saaf-brown);
+    font-weight: 600;
+}
+
+.saaf-auth-card p,
+.saaf-auth-card .form-text,
+.saaf-auth-card .text-muted {
+    color: var(--saaf-text-muted) !important;
+}
+
+.saaf-auth-card a {
+    color: var(--saaf-brown);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.saaf-auth-card a:hover {
+    color: var(--saaf-btn-hover);
+}
+
+.saaf-auth-card a:visited {
+    color: var(--saaf-brown);
+}
+
+[data-theme="dark"] .saaf-auth-card {
+    background: #2f2621;
+    border-color: rgba(245, 230, 211, 0.16);
+}
+
+[data-theme="dark"] .saaf-auth-card p,
+[data-theme="dark"] .saaf-auth-card .form-text,
+[data-theme="dark"] .saaf-auth-card .text-muted {
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .saaf-auth-card .form-label {
+    color: var(--saaf-cream-text);
+}
+
+[data-theme="dark"] .saaf-auth-card a {
+    color: var(--saaf-cream-text);
+}
+
+[data-theme="dark"] .saaf-auth-card a:hover {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .saaf-auth-card a:visited {
+    color: var(--saaf-cream-text);
 }
 
 /* ── In-site confirmation modal ── */
@@ -1193,7 +2295,7 @@ a.saaf-notif-dd-item {
 }
 
 .saaf-confirm-card {
-    background: #fff;
+    background: var(--saaf-modal-bg);
     border-radius: 16px;
     padding: 2rem;
     max-width: 440px;
@@ -1208,10 +2310,11 @@ a.saaf-notif-dd-item {
 }
 
 .saaf-confirm-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.25rem;
     color: var(--ink, #1c1712);
     margin: 0 0 0.6rem;
+    font-weight: 700;
 }
 
 .saaf-confirm-body {
@@ -1257,15 +2360,15 @@ a.saaf-notif-dd-item {
 
 .saaf-confirm-ok--accept {
     background: #1a7a4a;
-    color: #fff;
+    color: var(--saaf-cream-text);
 }
 
 .saaf-confirm-ok--danger {
     background: #c0392b;
-    color: #fff;
+    color: var(--saaf-cream-text);
 }
 
 .saaf-confirm-ok--default {
     background: var(--clay, #c2724f);
-    color: #fff;
+    color: var(--saaf-cream-text);
 }
