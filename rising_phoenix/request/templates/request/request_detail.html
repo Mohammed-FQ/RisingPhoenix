@@ -163,16 +163,22 @@
                   <i class="bi bi-box-arrow-up-right"></i> View Project
                 </a>
               {% endif %}
-              {% if user_proposal.conversation %}
-                <a href="{% url 'message:conversation_detail_view' user_proposal.conversation.id %}" class="proposal-action-btn">
-                  <i class="bi bi-chat-dots-fill"></i> Open Chat
-                </a>
-              {% else %}
-                <a href="{% url 'message:start_conversation_view' user_proposal.id %}" class="proposal-action-btn">
-                  <i class="bi bi-chat-dots-fill"></i> Start Chat
+              {% if user_proposal.is_contract_approval and user_proposal.contract %}
+                <a href="{% url 'payment:artisan_contract_review_view' user_proposal.contract.id %}"
+                   class="proposal-action-btn proposal-action-btn--accept">
+                  <i class="bi bi-file-earmark-text"></i> Accept Contract
                 </a>
               {% endif %}
             </div>
+            {% if user_proposal.conversation %}
+              <a href="{% url 'message:conversation_detail_view' user_proposal.conversation.id %}" class="proposal-action-btn">
+                <i class="bi bi-chat-dots-fill"></i> Open Chat
+              </a>
+            {% else %}
+              <a href="{% url 'message:start_conversation_view' user_proposal.id %}" class="proposal-action-btn">
+                <i class="bi bi-chat-dots-fill"></i> Start Chat
+              </a>
+            {% endif %}
           </div>
           <div class="proposal-card proposal-card--{{ user_proposal.status }}">
             <div class="proposal-card-head">
@@ -227,27 +233,32 @@
             {% for proposal in proposals %}
               <div class="proposal-card proposal-card--{{ proposal.status }}">
                 <div class="proposal-card-head">
-                  <div>
-                    <p class="proposal-card-artisan">
-                      <strong>{{ proposal.artisan.username }}</strong>
-                      {% if proposal.is_accepted and proposal.contract %}
-                        <a class="proposal-chat-btn" href="{% url 'progress:contract_detail_view' proposal.contract.id %}">
-                          <i class="bi bi-box-arrow-up-right"></i>
-                          <span>View Project</span>
-                        </a>
-                      {% endif %}
-                      {% if proposal.conversation %}
-                        <a class="proposal-chat-btn" href="{% url 'message:conversation_detail_view' proposal.conversation.id %}">
-                          <i class="bi bi-chat-dots-fill"></i>
-                          <span>Open Chat</span>
-                        </a>
-                      {% else %}
-                        <a class="proposal-chat-btn" href="{% url 'message:start_conversation_view' proposal.id %}">
-                          <i class="bi bi-chat-dots-fill"></i>
-                          <span>Start Chat</span>
-                        </a>
-                      {% endif %}
-                    </p>
+                  <div class="w-100">
+                    <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+                      <strong class="proposal-card-artisan">{{ proposal.artisan.username }}</strong>
+
+                      <div class="d-flex flex-wrap gap-2">
+                        {% if proposal.conversation %}
+                          <a class="proposal-chat-btn" href="{% url 'message:conversation_detail_view' proposal.conversation.id %}">
+                            <i class="bi bi-chat-dots-fill"></i>
+                            <span>Open Chat</span>
+                          </a>
+                        {% else %}
+                          <a class="proposal-chat-btn" href="{% url 'message:start_conversation_view' proposal.id %}">
+                            <i class="bi bi-chat-dots-fill"></i>
+                            <span>Start Chat</span>
+                          </a>
+                        {% endif %}
+
+                        {% if proposal.is_accepted and proposal.contract %}
+                          <a class="proposal-chat-btn" href="{% url 'progress:contract_detail_view' proposal.contract.id %}">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                            <span>View Project</span>
+                          </a>
+                        {% endif %}
+                      </div>
+                    </div>
+
                     <div class="proposal-card-stats-row">
                       <div class="proposal-card-stat">
                         <span class="proposal-stat-label">Price</span>
@@ -263,6 +274,7 @@
                       </div>
                     </div>
                   </div>
+
                   <span class="proposal-status-pill proposal-status-pill--{{ proposal.status }}">
                     {{ proposal.get_status_display }}
                   </span>
@@ -286,7 +298,7 @@
 
                 {% if proposal.is_pending and project_request.status != 'closed' %}
                   <div class="proposal-card-actions">
-                    <form method="post" action="{% url 'proposal:accept_proposal_view' proposal.id %}">
+                    <form method="post" action="{% url 'payment:proposal_checkout_view' proposal.id %}">
                       {% csrf_token %}
                       <button type="submit" class="proposal-action-btn proposal-action-btn--accept"
                         data-confirm-title="Accept Proposal"
