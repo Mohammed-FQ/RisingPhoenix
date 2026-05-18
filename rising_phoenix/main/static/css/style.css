@@ -89,7 +89,7 @@
 
 .artisan-avatar-fallback {
     background: var(--saaf-brown-light);
-    color: #fff;
+    color: var(--saaf-cream-text, #F2E4D1);
 }
 
 .artisan-rating-badge {
@@ -185,7 +185,7 @@
     padding: 0.35rem 0.6rem;
     border-radius: 0.75rem;
     background: var(--saaf-brown-light);
-    color: #fff;
+    color: var(--saaf-cream-text, #F2E4D1);
     font-size: 0.875rem;
     font-weight: 700;
     box-shadow: 0 8px 18px rgba(195, 163, 126, 0.18);

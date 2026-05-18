@@ -28,12 +28,7 @@
             <div class="saaf-loader-logo">
                 <img src="{% static 'images/logo.webp' %}" alt="Saaf" class="saaf-loader-logo-img">
             </div>
-            <div class="saaf-loader-text">
-                <span class="saaf-loader-letter" data-index="0">S</span>
-                <span class="saaf-loader-letter" data-index="1">a</span>
-                <span class="saaf-loader-letter" data-index="2">a</span>
-                <span class="saaf-loader-letter" data-index="3">f</span>
-            </div>
+            <div class="saaf-loader-spinner"></div>
         </div>
     </div>
 
@@ -184,6 +179,9 @@
                         <li class="mb-2"><a href="{% url 'request:request_list_view' %}" class="text-decoration-none saaf-footer-link">View Requests</a></li>
                         <li class="mb-2"><a href="{% url 'request:request_create_view' %}" class="text-decoration-none saaf-footer-link">Post a Request</a></li>
                         <li class="mb-2"><a href="{% url 'account:artisan_signup_view' %}" class="text-decoration-none saaf-footer-link">Become an Artisan</a></li>
+                        <li class="mb-2"><a href="{% url 'main:about_us_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About Us{% endif %}</a></li>
+                        <li class="mb-2"><a href="{% url 'main:members_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}الأعضاء{% else %}Members{% endif %}</a></li>
+                        <li class="mb-2"><a href="{% url 'main:terms_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}الشروط والأحكام{% else %}Terms{% endif %}</a></li>
                     </ul>
                 </div>
 
@@ -511,6 +509,95 @@
         window.addEventListener('load', syncSidebarPosition);
         window.addEventListener('resize', syncSidebarPosition);
         window.addEventListener('scroll', syncSidebarPosition, { passive: true });
+    })();
+    </script>
+    <script>
+    (function () {
+        var sidebarToggle = document.getElementById('saaf-sidebar-toggle');
+        var sidebar = document.getElementById('saaf-sidebar-main');
+        var sidebarMiniToggle = document.getElementById('saaf-sidebar-mini-toggle');
+        if (!sidebarToggle || !sidebar || !sidebarMiniToggle) return;
+
+        var toggleIcon = sidebarToggle.querySelector('i');
+        var miniToggleIcon = sidebarMiniToggle.querySelector('i');
+        var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+
+        // Keep current user preference, default to expanded when no state exists.
+        var storedState = localStorage.getItem('saaf-sidebar-collapsed');
+        var isCollapsed = storedState === 'true';
+
+        function updateToggleIcon(collapsed) {
+            if (!toggleIcon) return;
+            if (collapsed) {
+                toggleIcon.className = isRtl ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+            } else {
+                toggleIcon.className = isRtl ? 'bi bi-chevron-right' : 'bi bi-chevron-left';
+            }
+
+            if (!miniToggleIcon) return;
+            miniToggleIcon.className = isRtl ? 'bi bi-chevron-right' : 'bi bi-chevron-left';
+        }
+
+        // Main arrow appears only when sidebar is collapsed; mini arrow appears when expanded.
+        function updateSidebarState(collapsed) {
+            if (collapsed) {
+                sidebar.classList.add('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', 'false');
+                sidebarToggle.classList.remove('hidden');
+                sidebarMiniToggle.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', 'true');
+                sidebarToggle.classList.add('hidden');
+                sidebarMiniToggle.classList.remove('hidden');
+            }
+            updateToggleIcon(collapsed);
+            localStorage.setItem('saaf-sidebar-collapsed', collapsed ? 'true' : 'false');
+        }
+
+        // Apply initial state.
+        updateSidebarState(isCollapsed);
+
+        // Toggle on arrow click.
+        sidebarToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            isCollapsed = !isCollapsed;
+            updateSidebarState(isCollapsed);
+        });
+
+        sidebarMiniToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            isCollapsed = true;
+            updateSidebarState(isCollapsed);
+        });
+    })();
+    </script>
+    <script>
+    (function () {
+        var navbar = document.querySelector('.saaf-nav-wrapper');
+        if (!navbar) return;
+
+        var lastScrollY = 0;
+        var isHidden = false;
+        var scrollThreshold = 100; // Min scroll to trigger hide
+
+        window.addEventListener('scroll', function () {
+            var currentScrollY = window.scrollY;
+            var scrollDelta = currentScrollY - lastScrollY;
+
+            // Scrolling down
+            if (scrollDelta > 5 && currentScrollY > scrollThreshold && !isHidden) {
+                navbar.classList.add('hidden');
+                isHidden = true;
+            }
+            // Scrolling up
+            else if (scrollDelta < -5 && isHidden) {
+                navbar.classList.remove('hidden');
+                isHidden = false;
+            }
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
     })();
     </script>
 

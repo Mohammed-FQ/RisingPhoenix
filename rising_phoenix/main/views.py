@@ -150,3 +150,15 @@ def browse_view(request: HttpRequest):
     return render(request, 'main/user_browse.html', context)
 
 
+def about_us_view(request: HttpRequest):
+    return render(request, 'main/about_us.html')
+
+
+def members_view(request: HttpRequest):
+    return render(request, 'main/members.html')
+
+
+def terms_view(request: HttpRequest):
+    return render(request, 'main/terms.html')
+
+
