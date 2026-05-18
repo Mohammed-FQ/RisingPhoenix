@@ -116,6 +116,8 @@ def conversation_detail_view(request, conversation_id):
                 body=body[:120] if body else 'Sent an image',
                 link=reverse('message:conversation_detail_view', args=[conversation.id]),
             )
+            if is_ajax:
+                return JsonResponse({'ok': True})
             return redirect('message:conversation_detail_view', conversation_id=conversation.id)
 
     conversation_messages = conversation.messages.select_related("sender").order_by("created_at")

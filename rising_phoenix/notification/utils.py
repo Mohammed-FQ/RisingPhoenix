@@ -88,7 +88,7 @@ def _dispatch(*, to, subject, template, context):
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[to],
         html_message=html_message,
-        fail_silently=False,
+        fail_silently=True,
     )
     logger.debug('Email sent successfully to %s', to)
 

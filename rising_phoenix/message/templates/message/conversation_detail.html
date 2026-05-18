@@ -113,7 +113,7 @@
                                     <p class="saaf-chat-helper-text mb-0">JPEG, PNG, WebP, GIF, up to 5 MB.</p>
                                 </div>
                                 <div class="saaf-chat-submit-wrap">
-                                    <button type="submit" class="btn btn-saaf-primary rounded-pill px-4 w-100">
+                                    <button type="button" id="send-btn" class="btn btn-saaf-primary rounded-pill px-4 w-100">
                                         Send Message
                                     </button>
                                 </div>
@@ -156,7 +156,7 @@
     const removeImageBtn = document.getElementById('remove-image');
     const form = document.getElementById('message-form');
     const bodyInput = document.getElementById('body');
-    const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+    const submitButton = document.getElementById('send-btn');
 
     let shouldStickToBottom = true;
     let isSubmitting = false;
@@ -212,46 +212,6 @@
         const bsToast = new bootstrap.Toast(toastEl);
         bsToast.show();
         toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
-    }
-
-    async function submitMessageForm() {
-        const hasText = bodyInput.value.trim().length > 0;
-        const hasImage = imageInput.files && imageInput.files.length > 0;
-
-        if (!hasText && !hasImage) {
-            showToast('Please write a message or attach an image.', 'warning');
-            return;
-        }
-
-        const formData = new FormData(form);
-
-        try {
-            const response = await fetch(window.location.href, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            if (!response.ok) {
-                const data = await response.json().catch(() => ({}));
-                showToast(data.error || 'Something went wrong while sending the message.');
-                return;
-            }
-
-            bodyInput.value = '';
-            imageInput.value = '';
-            imagePreview.src = '';
-            imagePreviewWrapper.classList.add('d-none');
-
-            shouldStickToBottom = true;
-            await fetchMessages();
-            scrollToBottom(true);
-        } catch (error) {
-            console.error(error);
-            showToast('Something went wrong while sending the message.');
-        }
     }
 
     function renderMessages(messages) {
@@ -457,7 +417,6 @@
 
             if (!response.ok) {
                 removeOptimisticMessage(optimisticNode);
-
                 if (bodyInput) bodyInput.value = rawText;
                 showToast(data.error || 'Something went wrong while sending the message.');
                 return;
@@ -529,9 +488,8 @@
         });
     }
 
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+    if (submitButton) {
+        submitButton.addEventListener('click', function () {
             submitMessageForm();
         });
     }
