@@ -24,7 +24,12 @@
 
 <body>
     <div id="saaf-page-loader" class="saaf-page-loader" aria-hidden="false">
-        <span class="saaf-loader-dot" aria-label="Loading"></span>
+        <div class="saaf-loader-content">
+            <div class="saaf-loader-logo">
+                <img src="{% static 'images/logo.webp' %}" alt="Saaf" class="saaf-loader-logo-img">
+            </div>
+            <div class="saaf-loader-spinner"></div>
+        </div>
     </div>
 
     {% block top_nav %}
@@ -174,6 +179,9 @@
                         <li class="mb-2"><a href="{% url 'request:request_list_view' %}" class="text-decoration-none saaf-footer-link">View Requests</a></li>
                         <li class="mb-2"><a href="{% url 'request:request_create_view' %}" class="text-decoration-none saaf-footer-link">Post a Request</a></li>
                         <li class="mb-2"><a href="{% url 'account:artisan_signup_view' %}" class="text-decoration-none saaf-footer-link">Become an Artisan</a></li>
+                        <li class="mb-2"><a href="{% url 'main:about_us_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}من نحن{% else %}About Us{% endif %}</a></li>
+                        <li class="mb-2"><a href="{% url 'main:members_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}الأعضاء{% else %}Members{% endif %}</a></li>
+                        <li class="mb-2"><a href="{% url 'main:terms_view' %}" class="text-decoration-none saaf-footer-link">{% if LANGUAGE_CODE == 'ar' %}الشروط والأحكام{% else %}Terms{% endif %}</a></li>
                     </ul>
                 </div>
 
@@ -434,11 +442,162 @@
     </script>
     <script>
     (function () {
-        window.addEventListener('load', function () {
-            var loader = document.getElementById('saaf-page-loader');
-            if (!loader) return;
+        var loader = document.getElementById('saaf-page-loader');
+        if (!loader) return;
+
+        function showLoader() {
+            loader.setAttribute('aria-hidden', 'false');
+        }
+
+        function hideLoader() {
             loader.setAttribute('aria-hidden', 'true');
+        }
+
+        // Hide loader only when the current page is fully loaded.
+        window.addEventListener('load', hideLoader);
+        // Ensure loader is hidden when using browser back/forward cache.
+        window.addEventListener('pageshow', hideLoader);
+
+        // Intercept internal link clicks
+        document.addEventListener('click', function (e) {
+            var link = e.target.closest('a');
+            if (!link) return;
+
+            var href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') {
+                return;
+            }
+
+            // Keep browser default behavior for modified clicks and downloads.
+            if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || link.hasAttribute('download')) {
+                return;
+            }
+
+            // Show loader for internal navigation and let browser navigate immediately.
+            if (href.startsWith('/') || href.startsWith(window.location.origin)) {
+                showLoader();
+            }
         });
+
+        // Show loader for form submissions
+        document.addEventListener('submit', function (e) {
+            var form = e.target;
+            var method = form.getAttribute('method') || 'get';
+
+            if (method.toLowerCase() === 'get' || method.toLowerCase() === 'post') {
+                showLoader();
+            }
+        }, true);
+    })();
+    </script>
+    <script>
+    (function () {
+        function syncSidebarPosition() {
+            var sidebar = document.querySelector('.saaf-sidebar');
+            var footer = document.querySelector('.saaf-footer');
+            if (!sidebar || !footer || window.innerWidth <= 768) return;
+
+            var sidebarHeight = sidebar.offsetHeight;
+            var centeredTop = Math.max(16, (window.innerHeight - sidebarHeight) / 2);
+            var footerTop = footer.getBoundingClientRect().top;
+            var footerLimitedTop = footerTop - sidebarHeight - 16;
+            var nextTop = Math.min(centeredTop, footerLimitedTop);
+
+            sidebar.style.top = Math.max(16, nextTop) + 'px';
+        }
+
+        window.addEventListener('load', syncSidebarPosition);
+        window.addEventListener('resize', syncSidebarPosition);
+        window.addEventListener('scroll', syncSidebarPosition, { passive: true });
+    })();
+    </script>
+    <script>
+    (function () {
+        var sidebarToggle = document.getElementById('saaf-sidebar-toggle');
+        var sidebar = document.getElementById('saaf-sidebar-main');
+        var sidebarMiniToggle = document.getElementById('saaf-sidebar-mini-toggle');
+        if (!sidebarToggle || !sidebar || !sidebarMiniToggle) return;
+
+        var toggleIcon = sidebarToggle.querySelector('i');
+        var miniToggleIcon = sidebarMiniToggle.querySelector('i');
+        var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+
+        // Keep current user preference, default to expanded when no state exists.
+        var storedState = localStorage.getItem('saaf-sidebar-collapsed');
+        var isCollapsed = storedState === 'true';
+
+        function updateToggleIcon(collapsed) {
+            if (!toggleIcon) return;
+            if (collapsed) {
+                toggleIcon.className = isRtl ? 'bi bi-chevron-left' : 'bi bi-chevron-right';
+            } else {
+                toggleIcon.className = isRtl ? 'bi bi-chevron-right' : 'bi bi-chevron-left';
+            }
+
+            if (!miniToggleIcon) return;
+            miniToggleIcon.className = isRtl ? 'bi bi-chevron-right' : 'bi bi-chevron-left';
+        }
+
+        // Main arrow appears only when sidebar is collapsed; mini arrow appears when expanded.
+        function updateSidebarState(collapsed) {
+            if (collapsed) {
+                sidebar.classList.add('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', 'false');
+                sidebarToggle.classList.remove('hidden');
+                sidebarMiniToggle.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('collapsed');
+                sidebarToggle.setAttribute('aria-expanded', 'true');
+                sidebarToggle.classList.add('hidden');
+                sidebarMiniToggle.classList.remove('hidden');
+            }
+            updateToggleIcon(collapsed);
+            localStorage.setItem('saaf-sidebar-collapsed', collapsed ? 'true' : 'false');
+        }
+
+        // Apply initial state.
+        updateSidebarState(isCollapsed);
+
+        // Toggle on arrow click.
+        sidebarToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            isCollapsed = !isCollapsed;
+            updateSidebarState(isCollapsed);
+        });
+
+        sidebarMiniToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            isCollapsed = true;
+            updateSidebarState(isCollapsed);
+        });
+    })();
+    </script>
+    <script>
+    (function () {
+        var navbar = document.querySelector('.saaf-nav-wrapper');
+        if (!navbar) return;
+
+        var lastScrollY = 0;
+        var isHidden = false;
+        var scrollThreshold = 100; // Min scroll to trigger hide
+
+        window.addEventListener('scroll', function () {
+            var currentScrollY = window.scrollY;
+            var scrollDelta = currentScrollY - lastScrollY;
+
+            // Scrolling down
+            if (scrollDelta > 5 && currentScrollY > scrollThreshold && !isHidden) {
+                navbar.classList.add('hidden');
+                isHidden = true;
+            }
+            // Scrolling up
+            else if (scrollDelta < -5 && isHidden) {
+                navbar.classList.remove('hidden');
+                isHidden = false;
+            }
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
     })();
     </script>
 

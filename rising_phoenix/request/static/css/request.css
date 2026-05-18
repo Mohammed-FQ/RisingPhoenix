@@ -2,14 +2,14 @@
 
 :root {
 	--sand: var(--saaf-bg, #F1E8D5);
-	--sand-dark: var(--saaf-beige, #E0D2B4);
-	--clay: var(--saaf-brown-light, #B08C5A);
-	--clay-dark: #9a7647;
+	--sand-dark: var(--sand-dark, #D8C2A4);
+	--clay: var(--saaf-btn, #C77A5C);
+	--clay-dark: var(--saaf-btn-hover, #AE6448);
 	--ink: var(--saaf-brown, #6B4826);
 	--ink-mid: #6f5436;
-	--ink-light: #8B6841;
+	--ink-light: var(--saaf-text-muted, #8B6841);
 	--cream: var(--saaf-bg, #F1E8D5);
-	--white: var(--saaf-beige, #E0D2B4);
+	--white: var(--saaf-white, #FAF1E5);
 	--border: rgba(107, 72, 38, 0.14);
 	--success: #4a7c59;
 }
@@ -48,7 +48,7 @@ h5 {
 }
 
 .request-eyebrow {
-	color: var(--ink-light);
+	color: #ffffff;
 	font-size: 0.72rem;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
@@ -57,8 +57,14 @@ h5 {
 }
 
 .request-sub {
-	color: var(--ink-light);
+	color: #ffffff;
 	margin-bottom: 0;
+}
+
+.request-hero h1,
+.request-hero h2,
+.request-hero h3 {
+	color: #ffffff;
 }
 
 .request-action {
@@ -1252,7 +1258,7 @@ h5 {
 	right: 1rem;
 	background: rgba(255, 255, 255, 0.12);
 	border: none;
-	color: #fff;
+	color: var(--saaf-cream-text, #F2E4D1);
 	border-radius: 50%;
 	width: 40px;
 	height: 40px;

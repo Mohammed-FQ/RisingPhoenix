@@ -1,5 +1,11 @@
 {% if request.user.is_authenticated %}
-<aside class="saaf-sidebar">
+<button id="saaf-sidebar-toggle" class="saaf-sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar">
+    <i class="bi bi-chevron-right"></i>
+</button>
+<aside class="saaf-sidebar" id="saaf-sidebar-main">
+    <button id="saaf-sidebar-mini-toggle" class="saaf-sidebar-mini-toggle" aria-label="Collapse sidebar" title="Collapse sidebar">
+        <i class="bi bi-chevron-left"></i>
+    </button>
     <p class="sidebar-label">{% if LANGUAGE_CODE == 'ar' %}مساحتي{% else %}My Space{% endif %}</p>
 
     {% if request.user.is_staff %}
